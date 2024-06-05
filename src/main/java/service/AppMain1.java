@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 
+import bean.dto.Librarian;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +10,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AppMain1 extends Application {
-
+	
+	private Librarian librarian;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		String fxmlFile = "root1.fxml";
@@ -39,4 +42,6 @@ public class AppMain1 extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	
 }

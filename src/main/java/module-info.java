@@ -6,6 +6,7 @@ module sampleGradle2{
 	requires javafx.controls;
 	requires javafx.base;
 	requires javafx.graphics;
+	requires java.sql;
 	
 	opens controller to javafx.fxml;
 	exports service;

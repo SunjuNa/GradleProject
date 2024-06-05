@@ -17,8 +17,8 @@
          <font>
             <Font size="15.0" />
          </font></Label>
-      <TextField layoutX="265.0" layoutY="119.0" prefWidth="199.0" />
-      <Button fx:id="button1" layoutX="265.0" layoutY="178.0" mnemonicParsing="false" onAction="#goPage2" prefHeight="22.0" prefWidth="70.0" text="확인" />
+      <TextField fx:id="textField" onKeyPressed="#handleKeyPress" layoutX="265.0" layoutY="119.0" prefWidth="199.0" />
+      <Button fx:id="button1" layoutX="265.0" layoutY="178.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="22.0" prefWidth="70.0" text="확인" />
       <Label alignment="CENTER" layoutY="260.0" prefHeight="115.0" prefWidth="600.0" style="-fx-background-color: FDF2B8;" text="오류 작동 문의는 담당 관리자로 연락주세요">
          <font>
             <Font size="22.0" />
