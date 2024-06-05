@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController2">
+   <children>
+      <Label prefHeight="529.0" prefWidth="672.0" style="-fx-background-color: C7E4E1;" />
+      <MenuBar layoutY="1.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="newWindowMenuItem" mnemonicParsing="false" onAction="#openNewWindow" text="새창(N)" />
+                  <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#closeWindow" text="닫기(X)" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="도움말 항목" />
+              <MenuItem mnemonicParsing="false" text="About us" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane layoutY="58.0" prefHeight="471.0" prefWidth="167.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="수서자료">
+               <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="377.0" prefWidth="175.0" style="-fx-background-color: white;">
+                     <children>
+                        <TreeView layoutX="11.0" layoutY="10.0" prefHeight="421.0" prefWidth="146.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <GridPane layoutX="186.0" layoutY="58.0" prefHeight="426.0" prefWidth="485.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="280.6666564941406" minHeight="10.0" prefHeight="31.666666666666664" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="258.6666717529297" minHeight="0.0" prefHeight="43.33332316080728" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="369.3333435058594" minHeight="10.0" prefHeight="351.3333435058594" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TableView prefHeight="185.0" prefWidth="485.0" GridPane.rowIndex="2">
+              <columns>
+                  <TableColumn prefWidth="75.0" text="Column X" />
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+            <Label prefHeight="32.0" prefWidth="485.0" style="-fx-background-color: DEF0D7; -fx-border-color: gray;" GridPane.rowIndex="1">
+               <graphic>
+                  <HBox prefHeight="30.0" prefWidth="487.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="76.0" text="total :">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <TextField prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: DEF0D7; -fx-border-color: gray;" />
+                     </children>
+                  </HBox>
+               </graphic>
+            </Label>
+            <Label prefHeight="32.0" prefWidth="485.0" style="-fx-background-color: DEF0D7; -fx-border-color: gray;">
+               <graphic>
+                  <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="MenuButton">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </MenuButton>
+                        <TextField prefHeight="22.0" prefWidth="119.0" />
+                        <Button mnemonicParsing="false" text="검색" />
+                     </children>
+                  </HBox>
+               </graphic></Label>
+         </children>
+      </GridPane>
+      <GridPane layoutX="186.0" layoutY="493.0" prefHeight="25.0" prefWidth="221.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="94.0" text="추가">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="80.0" text="수정" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="85.0" text="삭제" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+      <HBox layoutX="270.0" layoutY="-171.0" prefHeight="100.0" prefWidth="200.0" />
+      <Button fx:id="goPage3Button" layoutX="522.0" layoutY="11.0" mnemonicParsing="false" onAction="#goPage3" prefHeight="28.0" prefWidth="139.0" text="관리자 페이지로" />
+   </children>
+</AnchorPane>
