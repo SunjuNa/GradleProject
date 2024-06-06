@@ -2,11 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -18,6 +20,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController2">
    <children>
@@ -61,13 +64,6 @@
           <RowConstraints maxHeight="369.3333435058594" minHeight="10.0" prefHeight="351.3333435058594" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="185.0" prefWidth="485.0" GridPane.rowIndex="2">
-              <columns>
-                  <TableColumn prefWidth="75.0" text="Column X" />
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
             <Label prefHeight="32.0" prefWidth="485.0" style="-fx-background-color: DEF0D7; -fx-border-color: gray;" GridPane.rowIndex="1">
                <graphic>
                   <HBox prefHeight="30.0" prefWidth="487.0">
@@ -77,7 +73,10 @@
                               <Insets left="20.0" />
                            </padding>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: DEF0D7; -fx-border-color: gray;" />
+                        <TextField prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: DEF0D7; -fx-border-color: gray;">
+                           <HBox.margin>
+                              <Insets top="2.0" />
+                           </HBox.margin></TextField>
                      </children>
                   </HBox>
                </graphic>
@@ -86,17 +85,55 @@
                <graphic>
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="MenuButton">
-                          <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                        <MenuButton fx:id="menuButtonAuthor" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="전체">
+                        	<items>
+                            	<MenuItem onAction="#handleSearchTypeMenuItem" mnemonicParsing="false" text="저자" />
+                            	<MenuItem onAction="#handleSearchTypeMenuItem" mnemonicParsing="false" text="책제목" />
                           </items>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
                         </MenuButton>
-                        <TextField prefHeight="22.0" prefWidth="119.0" />
-                        <Button mnemonicParsing="false" text="검색" />
+                        <TextField fx:id="searchTextField" prefHeight="22.0" prefWidth="119.0">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin></TextField>
+                        <Button onAction="#handleSearch" mnemonicParsing="false" text="검색" />
                      </children>
                   </HBox>
-               </graphic></Label>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets right="10.0" top="3.0" />
+               </padding></Label>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <content>
+                  <VBox prefHeight="535.0" prefWidth="483.0">
+                     <children>
+                        <TableView fx:id="resultTable" prefHeight="535.0" prefWidth="467.0">
+                        <!-- 
+                          <columns>
+                              <TableColumn prefWidth="32.666627287864685">
+                                 <graphic>
+                                    <CheckBox mnemonicParsing="false" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="40.66660690307617" text="ISBN" />
+                            <TableColumn prefWidth="80.00000762939453" text="서명" />
+                            <TableColumn prefWidth="66.66668701171875" text="저자" />
+                              <TableColumn prefWidth="55.99995422363281" text="출판년도" />
+                              <TableColumn prefWidth="38.66656494140625" text="권수" />
+                              <TableColumn prefWidth="76.00003051757812" text="도서관" />
+                              <TableColumn prefWidth="70.0001220703125" text="자료실" />
+                          </columns>
+                           -->
+                        </TableView>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
          </children>
       </GridPane>
       <GridPane layoutX="186.0" layoutY="493.0" prefHeight="25.0" prefWidth="221.0">
@@ -126,7 +163,6 @@
             </Button>
          </children>
       </GridPane>
-      <HBox layoutX="270.0" layoutY="-171.0" prefHeight="100.0" prefWidth="200.0" />
       <Button fx:id="goPage3Button" layoutX="522.0" layoutY="11.0" mnemonicParsing="false" onAction="#goPage3" prefHeight="28.0" prefWidth="139.0" text="관리자 페이지로" />
    </children>
 </AnchorPane>
