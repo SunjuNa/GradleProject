@@ -78,18 +78,18 @@
                   <Line endX="515.0" startX="-100.0" />
                   <TableView prefHeight="505.0" prefWidth="616.0">
                     <columns>
-                      <TableColumn prefWidth="46.666656613349915">
+                      <TableColumn fx:id="checkBoxColumn" prefWidth="46.666656613349915">
                            <graphic>
                               <CheckBox mnemonicParsing="false" />
                            </graphic>
                         </TableColumn>
-                      <TableColumn prefWidth="44.666656494140625" text="편권" />
-                        <TableColumn prefWidth="148.66671752929688" text="서명" />
-                        <TableColumn prefWidth="55.99993896484375" text="저작자" />
-                        <TableColumn prefWidth="53.3333740234375" text="발행연도" />
-                        <TableColumn prefWidth="94.66668701171875" text="도서관" />
-                        <TableColumn text="자료실" />
-                        <TableColumn prefWidth="74.66668701171875" text="자료상태" />
+                      <TableColumn fx:id="bCopy" prefWidth="44.666656494140625" text="편권" />
+                        <TableColumn fx:id="bCopy"  prefWidth="148.66671752929688" text="서명" />
+                        <TableColumn fx:id="bCopy"  prefWidth="55.99993896484375" text="저작자" />
+                        <TableColumn fx:id="bCopy"  prefWidth="53.3333740234375" text="발행연도" />
+                        <TableColumn fx:id="bCopy"  prefWidth="94.66668701171875" text="도서관" />
+                        <TableColumn fx:id="bCopy"  text="자료실" />
+                        <TableColumn fx:id="bCopy"  prefWidth="74.66668701171875" text="자료상태" />
                     </columns>
                      <VBox.margin>
                         <Insets top="20.0" />
