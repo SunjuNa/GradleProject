@@ -2,13 +2,13 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import bean.dao.BookDAO;
 import bean.dao.BookDAOImpl;
 import bean.dto.Book;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,25 +16,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class RootController2 implements Initializable{
 	private BookDAO bookDAO;
 	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		//DAO초기화
-		bookDAO = new BookDAOImpl();
-	}
-
     @FXML
     private MenuItem closeButton;
     @FXML
@@ -51,20 +50,49 @@ public class RootController2 implements Initializable{
     @FXML
     private String selectedAuthor;
     @FXML
-    private TableView<String> resultTable;
+    private TableView<Book> tableView;
+    
+    @FXML
+    private MenuItem newWindowMenuItem;
+    
+    @FXML
+    private TableColumn<Book, Boolean> checkBoxColumn;
+    @FXML
+    private TableColumn<Book, String> isbnColumn;
+    @FXML
+    private TableColumn<Book, String> bNameColumn;
+    @FXML
+    private TableColumn<Book, String> authorColumn;
+    @FXML
+    private TableColumn<Book, Integer> pYearColumn;
+    
+    @FXML
+    private TextField totalinfotextfield;
+    
+    @FXML
+    private Button goPage3Button;
+
+    @Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		//DAO초기화
+		bookDAO = new BookDAOImpl();
+	}
 
     @FXML
     void closeWindow(ActionEvent event) {
     	Platform.exit();
     }
-
-    @FXML
-    private Button goPage3Button;
-
     @FXML
     void goPage3(ActionEvent event) {
     	try {
-    		Parent secondScene = FXMLLoader.load(getClass().getResource("/resources/service/root3.fxml"));
+    		String fxmlFile = "root3.fxml";
+    		System.out.println("Loading FXML from: " + getClass().getClassLoader().getResource(fxmlFile));
+    		// 파일이 있는지 확인합니다.
+            if (getClass().getClassLoader().getResource(fxmlFile) == null) {
+                throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
+            }
+    		Parent secondScene = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
             Scene scene = new Scene(secondScene);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -74,10 +102,6 @@ public class RootController2 implements Initializable{
 			e.printStackTrace();
 		}
     }
-    
-
-    @FXML
-    private MenuItem newWindowMenuItem;
 
     @FXML
     private void openNewWindow(ActionEvent event) {
@@ -97,31 +121,6 @@ public class RootController2 implements Initializable{
         }
     }
     
-//    @FXML
-//    private void handleExit() {
-//    	//종료 버튼 처리
-//    }
-//    
-//    @FXML
-//    private void selectAuthor() {
-//    	selectedAuthor = "Selected Author";
-//    	menuButtonTotal.setText(selectedAuthor);
-//    }
-//    
-//    @FXML
-//    private void handleSearch() {
-//    	String searchtext = searchTextField.getText();
-//    	System.out.println("메뉴TextField 값 : "+ searchtext);
-//    	if(selectedAuthor!=null && !selectedAuthor.isEmpty() && searchtext!=null && !searchtext.isEmpty()) {
-//    		List<String> books = bookDAO.getBooksByAuthor(selectedAuthor);
-//    		resultTable.getItems().clear();
-//    		ObservableList<String> items = (ObservableList<String>)resultTable.getItems();
-//    		items.addAll(books);
-//    	}
-    	
-    	    
-//    }
-    
      @FXML
      private void handleSearchTypeMenuItem(ActionEvent event) {
     	 MenuItem menuItem = (MenuItem) event.getSource();
@@ -135,20 +134,48 @@ public class RootController2 implements Initializable{
     	 String searchText = searchTextField.getText();
     	 System.out.println("메뉴TextField 값 : "+ searchText);
     	 if(searchText !=null && !searchText.isEmpty()) {
-    		 List<Book> books;
+    		 ObservableList<Book> books;
     		 if(searchType.equals("전체")) {
     			 //둘다 해당
     			 books = bookDAO.getBooksByAuthor(searchText);
+    			 if(books==null) books=bookDAO.getBooksByB_name(searchText);
     		 }else if(searchType.equals("저자")) {
     			 books = bookDAO.getBooksByAuthor(searchText);
     		 }else {
     			 books = bookDAO.getBooksByB_name(searchText);
     		 }
-    		 System.out.println("books는 "+books);
-    		 resultTable.getItems().clear();
-//    		 resultTable.getItems().addAll(books);
+    		 totalinfotextfield.setText(String.valueOf(books.size()));
+			 books.forEach(book -> System.out.println(book.toString()));
+			 
+			 tableView.setItems(books);
+			 checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
+			 checkBoxColumn.setEditable(true);
+			 isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+		     bNameColumn.setCellValueFactory(new PropertyValueFactory<>("bName"));
+		     authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+		     pYearColumn.setCellValueFactory(new PropertyValueFactory<>("pYear"));
+    	 }
+    	 else {
+    		 System.out.println("검색 내용이 없습니다");
+         	 showAlert("검색 내용이 없습니다");
     	 }
      }
      
+     private void showAlert(String message) {
+         Alert alert = new Alert(AlertType.ERROR);
+         alert.setTitle("Error Dialog");
+         alert.setHeaderText(null);
+         alert.setContentText(message);
+         alert.showAndWait();
+     
+ 		}
     
+     @FXML
+     private void handleKeyPress() {
+    	 searchTextField.setOnKeyPressed(event -> {
+    		 if(event.getCode()==KeyCode.ENTER) {
+    			 handleSearch();
+    		 }
+    	 });
+     }
 }

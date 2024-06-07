@@ -10,4 +10,8 @@ module sampleGradle2{
 	
 	opens controller to javafx.fxml;
 	exports service;
+	
+	opens bean.dto to javafx.base; 
+	opens bean.dao to javafx.base;
+	
 }

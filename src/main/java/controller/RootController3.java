@@ -28,7 +28,13 @@ public class RootController3 implements Initializable{
     @FXML
     void goPage2(ActionEvent event) {
     	try {
-    		Parent secondScene = FXMLLoader.load(getClass().getResource("/resources/service/root2.fxml"));
+    		String fxmlFile = "root2.fxml";
+    		System.out.println("Loading FXML from: " + getClass().getClassLoader().getResource(fxmlFile));
+    		// 파일이 있는지 확인합니다.
+            if (getClass().getClassLoader().getResource(fxmlFile) == null) {
+                throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
+            }
+    		Parent secondScene = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
             Scene scene = new Scene(secondScene);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);

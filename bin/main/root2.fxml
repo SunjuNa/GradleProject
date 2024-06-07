@@ -73,7 +73,7 @@
                               <Insets left="20.0" />
                            </padding>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: DEF0D7; -fx-border-color: gray;">
+                        <TextField fx:id="totalinfotextfield" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: DEF0D7; -fx-border-color: gray;">
                            <HBox.margin>
                               <Insets top="2.0" />
                            </HBox.margin></TextField>
@@ -87,18 +87,18 @@
                      <children>
                         <MenuButton fx:id="menuButtonAuthor" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="전체">
                         	<items>
-                            	<MenuItem onAction="#handleSearchTypeMenuItem" mnemonicParsing="false" text="저자" />
-                            	<MenuItem onAction="#handleSearchTypeMenuItem" mnemonicParsing="false" text="책제목" />
+                            	<MenuItem mnemonicParsing="false" onAction="#handleSearchTypeMenuItem" text="저자" />
+                            	<MenuItem mnemonicParsing="false" onAction="#handleSearchTypeMenuItem" text="책제목" />
                           </items>
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
                         </MenuButton>
-                        <TextField fx:id="searchTextField" prefHeight="22.0" prefWidth="119.0">
+                        <TextField fx:id="searchTextField" onAction="#handleKeyPress" prefHeight="22.0" prefWidth="119.0">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin></TextField>
-                        <Button onAction="#handleSearch" mnemonicParsing="false" text="검색" />
+                        <Button mnemonicParsing="false" onAction="#handleSearch" text="검색" />
                      </children>
                   </HBox>
                </graphic>
@@ -112,23 +112,22 @@
                <content>
                   <VBox prefHeight="535.0" prefWidth="483.0">
                      <children>
-                        <TableView fx:id="resultTable" prefHeight="535.0" prefWidth="467.0">
-                        <!-- 
+                        <TableView fx:id="tableView" prefHeight="535.0" prefWidth="467.0">
                           <columns>
-                              <TableColumn prefWidth="32.666627287864685">
+                              <TableColumn fx:id="checkBoxColumn" prefWidth="32.666627287864685">
                                  <graphic>
                                     <CheckBox mnemonicParsing="false" />
                                  </graphic>
                               </TableColumn>
-                              <TableColumn prefWidth="40.66660690307617" text="ISBN" />
-                            <TableColumn prefWidth="80.00000762939453" text="서명" />
-                            <TableColumn prefWidth="66.66668701171875" text="저자" />
-                              <TableColumn prefWidth="55.99995422363281" text="출판년도" />
-                              <TableColumn prefWidth="38.66656494140625" text="권수" />
-                              <TableColumn prefWidth="76.00003051757812" text="도서관" />
-                              <TableColumn prefWidth="70.0001220703125" text="자료실" />
+                              <TableColumn fx:id="isbnColumn" prefWidth="40.66660690307617" text="ISBN" />
+                            <TableColumn fx:id="bNameColumn" prefWidth="144.00000762939453" text="서명" />
+                            <TableColumn fx:id="authorColumn" prefWidth="71.99998474121094" text="저자" />
+                              <TableColumn fx:id="pYearColumn" prefWidth="58.000030517578125" text="출판년도" />
+                           <!--     <TableColumn fx:id="column5" prefWidth="38.66656494140625" text="권수" />
+                              <TableColumn fx:id="column6" prefWidth="76.00003051757812" text="도서관" />
+                              <TableColumn fx:id="column7" prefWidth="70.0001220703125" text="자료실" />
+                          	-->
                           </columns>
-                           -->
                         </TableView>
                      </children>
                   </VBox>
