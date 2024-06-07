@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewWindowController">
+   <children>
+      <ScrollPane prefHeight="603.0" prefWidth="618.0">
+         <content>
+            <VBox prefHeight="799.0" prefWidth="616.0">
+               <children>
+                  <Pane prefHeight="105.0" prefWidth="616.0">
+                     <children>
+                        <Button layoutX="543.0" layoutY="14.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="53.0" text="x">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Button>
+                     </children></Pane>
+                  <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="616.0">
+                     <children>
+                        <TextField fx:id="tfGreatTitle" prefHeight="29.0" prefWidth="431.0" />
+                     </children>
+                  </HBox>
+                  <Line endX="515.0" startX="-100.0" />
+                  <VBox alignment="CENTER" prefHeight="129.0" prefWidth="616.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="616.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="TOP" prefHeight="27.0" prefWidth="102.0" text="표제" />
+                              <TextField fx:id="tfsmallTitle" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="616.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="TOP" prefHeight="27.0" prefWidth="102.0" text="저자" />
+                              <TextField fx:id="tfAuthor" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="616.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="TOP" prefHeight="27.0" prefWidth="102.0" text="ISBN" />
+                              <TextField fx:id="tfISBN" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Line endX="515.0" startX="-100.0" />
+                  <TableView prefHeight="505.0" prefWidth="616.0">
+                    <columns>
+                      <TableColumn prefWidth="46.666656613349915">
+                           <graphic>
+                              <CheckBox mnemonicParsing="false" />
+                           </graphic>
+                        </TableColumn>
+                      <TableColumn prefWidth="44.666656494140625" text="편권" />
+                        <TableColumn prefWidth="148.66671752929688" text="서명" />
+                        <TableColumn prefWidth="55.99993896484375" text="저작자" />
+                        <TableColumn prefWidth="53.3333740234375" text="발행연도" />
+                        <TableColumn prefWidth="94.66668701171875" text="도서관" />
+                        <TableColumn text="자료실" />
+                        <TableColumn prefWidth="74.66668701171875" text="자료상태" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </TableView>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

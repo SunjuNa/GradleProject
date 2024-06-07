@@ -138,14 +138,14 @@ public class RootController2 implements Initializable{
     		 if(searchType.equals("전체")) {
     			 //둘다 해당
     			 books = bookDAO.getBooksByAuthor(searchText);
-    			 if(books==null) books=bookDAO.getBooksByB_name(searchText);
+    			 books.addAll(bookDAO.getBooksByB_name(searchText));
     		 }else if(searchType.equals("저자")) {
     			 books = bookDAO.getBooksByAuthor(searchText);
     		 }else {
     			 books = bookDAO.getBooksByB_name(searchText);
     		 }
-    		 totalinfotextfield.setText(String.valueOf(books.size()));
-			 books.forEach(book -> System.out.println(book.toString()));
+    		 books.forEach(book -> System.out.println(book.toString())); //받아온 값 출력
+    		 totalinfotextfield.setText(String.valueOf(books.size())); //total: 건수 표시
 			 
 			 tableView.setItems(books);
 			 checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
@@ -154,6 +154,18 @@ public class RootController2 implements Initializable{
 		     bNameColumn.setCellValueFactory(new PropertyValueFactory<>("bName"));
 		     authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
 		     pYearColumn.setCellValueFactory(new PropertyValueFactory<>("pYear"));
+		     
+		     //상세페이지
+		     tableView.setOnMouseClicked(event -> {
+		    	    if (event.getClickCount() == 2 && !tableView.getSelectionModel().isEmpty()) {
+		    	    	Book rowData = tableView.getSelectionModel().getSelectedItem(); // 선택한 행의 데이터 가져오기
+		    	        
+		    	        // 새 창을 열기 위한 코드 작성
+		    	        // 새 창을 열 때 선택한 행의 데이터를 전달할 수 있습니다.
+		    	        // 예: 새 창을 생성하는 메서드를 호출하고 선택한 데이터를 전달합니다.
+		    	        openNewWindow(rowData);
+		    	    }
+		    	});
     	 }
     	 else {
     		 System.out.println("검색 내용이 없습니다");
@@ -161,7 +173,34 @@ public class RootController2 implements Initializable{
     	 }
      }
      
-     private void showAlert(String message) {
+     //table의 각행을 더블클릭시 나오는 화면
+     private void openNewWindow(Book rowData) {
+		// TODO Auto-generated method stub
+    	// 새 창을 생성하고 선택한 데이터를 전달합니다.
+    	    Stage stage = new Stage();
+    	    
+    	    String fxmlFile = "bookDetailPage.fxml";
+    		System.out.println("Loading FXML from: " + getClass().getClassLoader().getResource(fxmlFile));
+    		// 파일이 있는지 확인합니다.
+            if (getClass().getClassLoader().getResource(fxmlFile) == null) {
+                throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
+            }
+    	    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+    	    
+    	    Parent root;
+			try {
+				root = loader.load();
+				NewWindowController controller = loader.getController();
+				controller.initData(rowData); // 선택한 데이터 전달
+				stage.setScene(new Scene(root));
+				stage.show();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+
+	private void showAlert(String message) {
          Alert alert = new Alert(AlertType.ERROR);
          alert.setTitle("Error Dialog");
          alert.setHeaderText(null);
