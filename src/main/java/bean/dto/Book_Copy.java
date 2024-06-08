@@ -20,6 +20,17 @@ public class Book_Copy {
 		this.status_id = status_id;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Book_copy{ bookid='"+bookid+'\''+
+				",isbn="+isbn+", b_copy="+b_copy+
+				",p_date="+p_date+", room_id="+room_id+
+				",room_id="+room_id+", status_id="+status_id+'}';
+	}
+
+
+
 	public String getBookid() {
 		return bookid;
 	}

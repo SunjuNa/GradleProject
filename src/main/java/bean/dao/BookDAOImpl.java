@@ -14,7 +14,7 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public ObservableList<Book> getBooksByAuthor(String author) {
 		// TODO Auto-generated method stub
-		
+		// 태백산맥으로 시험해볼것
 		String sql = "SELECT isbn, b_name as bName, author, p_year as pYear FROM Book where author LIKE ? ";
 		ObservableList<Book> books = FXCollections.observableArrayList();
 		try(Connection conn = DatabaseUtil.getConnection();
