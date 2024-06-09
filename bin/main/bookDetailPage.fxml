@@ -84,12 +84,13 @@
                            </graphic>
                         </TableColumn>
                       <TableColumn fx:id="bookIDColumn" prefWidth="44.666656494140625" text="bookID" />
-                        <TableColumn fx:id="bNameColumn" prefWidth="148.66671752929688" text="서명" />
-                        <TableColumn fx:id="authorColumn" prefWidth="55.99993896484375" text="저작자" />
+                        <TableColumn fx:id="isbnColumn" prefWidth="61.33331298828125" text="isbn" />
+                        <TableColumn fx:id="bNameColumn" prefWidth="106.0" text="서명" />
+                        <TableColumn fx:id="authorColumn" prefWidth="76.6666259765625" text="저작자" />
                         <TableColumn fx:id="pYearColumn" prefWidth="53.3333740234375" text="발행연도" />
-                        <TableColumn fx:id="libraryNameColumn" prefWidth="94.66668701171875" text="도서관" />
-                        <TableColumn fx:id="roomNameColumn" text="자료실" />
-                        <TableColumn fx:id="bStatusColumn" prefWidth="74.66668701171875" text="자료상태" />
+                        <TableColumn fx:id="libraryNameColumn" prefWidth="86.6666259765625" text="도서관" />
+                        <TableColumn fx:id="roomNameColumn" prefWidth="74.66668701171875" text="자료실" />
+                        <TableColumn fx:id="bStatusColumn" prefWidth="86.0" text="자료상태" />
                     </columns>
                      <VBox.margin>
                         <Insets top="20.0" />

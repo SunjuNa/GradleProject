@@ -1,11 +1,9 @@
 package controller;
 
 import bean.dao.Book_CopyDAO;
-import bean.dao.Book_CopyDAOImpl;
 import bean.dao.ItemsDetailDAO;
 import bean.dao.ItemsDetailDAOImpl;
 import bean.dao.RoomDAO;
-import bean.dto.Book;
 import bean.dto.ItemsDetail;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,6 +35,8 @@ public class NewWindowController {
 	@FXML
 	private TableColumn<ItemsDetail, Integer> bookIDColumn;
 	@FXML
+	private TableColumn<ItemsDetail, String> isbnColumn;
+	@FXML
 	private TableColumn<ItemsDetail, String> bNameColumn;
 	@FXML
 	private TableColumn<ItemsDetail, String> authorColumn;
@@ -54,11 +54,11 @@ public class NewWindowController {
 	 * @param rowData
 	 */
 	
-	public void initData(Book rowData) {
+	public void initData(ItemsDetail rowData) {
 		// TODO Auto-generated method stub
 		
 		//DAO 초기화
-		bookCopyDAO = new Book_CopyDAOImpl();
+//		bookCopyDAO = new Book_CopyDAOImpl();
 		itemsDetailDAO = new ItemsDetailDAOImpl();
 		
 		tfGreatTitle.setText(rowData.getBName());
@@ -81,6 +81,7 @@ public class NewWindowController {
         checkBoxColumn.setEditable(true);
 
         bookIDColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
+        isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         bNameColumn.setCellValueFactory(new PropertyValueFactory<>("bName"));   
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author")); 
         pYearColumn.setCellValueFactory(new PropertyValueFactory<>("pYear"));  

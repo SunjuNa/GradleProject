@@ -2,6 +2,7 @@ package bean.dto;
 
 public class ItemsDetail {
 	private int bookID;
+	private String isbn;
 	private String bName;
 	private String author;
 	private int pYear;
@@ -9,10 +10,11 @@ public class ItemsDetail {
 	private String roomName;
 	private String bStatus;
 	
-	public ItemsDetail(int bookID, String bName, String author, int pYear, String libraryName, String roomName,
+	public ItemsDetail(int bookID, String isbn, String bName, String author, int pYear, String libraryName, String roomName,
 			String bStatus) {
 		super();
 		this.bookID = bookID;
+		this.isbn=isbn;
 		this.bName = bName;
 		this.author = author;
 		this.pYear = pYear;
@@ -24,7 +26,7 @@ public class ItemsDetail {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "ItemsDetail{bookid='"+bookID+'\''+
+		return "ItemsDetail{bookid='"+bookID+'\''+", isbn="+isbn+
 				",bName= "+bName+", author="+author+
 				",p_year="+pYear+", libraryName="+libraryName+
 				",roomName= "+roomName+", bStatus= "+bStatus+'}';
@@ -33,6 +35,14 @@ public class ItemsDetail {
 	//getter setter
 	public int getBookID() {
 		return bookID;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public void setBookID(int bookID) {

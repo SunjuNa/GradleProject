@@ -6,7 +6,9 @@ import java.util.ResourceBundle;
 
 import bean.dao.BookDAO;
 import bean.dao.BookDAOImpl;
-import bean.dto.Book;
+import bean.dao.ItemsDetailDAO;
+import bean.dao.ItemsDetailDAOImpl;
+import bean.dto.ItemsDetail;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,6 +35,7 @@ import javafx.stage.Stage;
 
 public class RootController2 implements Initializable{
 	private BookDAO bookDAO;
+	private ItemsDetailDAO itemsDetailDAO;
 	
     @FXML
     private MenuItem closeButton;
@@ -49,23 +52,31 @@ public class RootController2 implements Initializable{
     
     @FXML
     private String selectedAuthor;
-    @FXML
-    private TableView<Book> tableView;
     
     @FXML
     private MenuItem newWindowMenuItem;
     
     @FXML
-    private TableColumn<Book, Boolean> checkBoxColumn;
-    @FXML
-    private TableColumn<Book, String> isbnColumn;
-    @FXML
-    private TableColumn<Book, String> bNameColumn;
-    @FXML
-    private TableColumn<Book, String> authorColumn;
-    @FXML
-    private TableColumn<Book, Integer> pYearColumn;
-    
+	private TableView<ItemsDetail> tableView;
+	@FXML
+	private TableColumn<ItemsDetail, Boolean> checkBoxColumn;
+	@FXML
+	private TableColumn<ItemsDetail, Integer> bookIDColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> isbnColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> bNameColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> authorColumn;
+	@FXML
+	private TableColumn<ItemsDetail, Integer> pYearColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> libraryNameColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> roomNameColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> bStatusColumn;
+	
     @FXML
     private TextField totalinfotextfield;
     
@@ -77,6 +88,7 @@ public class RootController2 implements Initializable{
 		// TODO Auto-generated method stub
 		//DAO초기화
 		bookDAO = new BookDAOImpl();
+		itemsDetailDAO = new ItemsDetailDAOImpl();
 	}
 
     @FXML
@@ -134,31 +146,34 @@ public class RootController2 implements Initializable{
     	 String searchText = searchTextField.getText();
     	 System.out.println("메뉴TextField 값 : "+ searchText);
     	 if(searchText !=null && !searchText.isEmpty()) {
-    		 ObservableList<Book> books;
+    		 ObservableList<ItemsDetail> itemsDetails;
     		 if(searchType.equals("전체")) {
     			 //둘다 해당
-    			 books = bookDAO.getBooksByAuthor(searchText);
-    			 books.addAll(bookDAO.getBooksByB_name(searchText));
+    			 itemsDetails=itemsDetailDAO.getItemsDetailByB_nameOrAuthor(searchText);
     		 }else if(searchType.equals("저자")) {
-    			 books = bookDAO.getBooksByAuthor(searchText);
+    			 itemsDetails =itemsDetailDAO.getItemsDetailByAuthor(searchText);
     		 }else {
-    			 books = bookDAO.getBooksByB_name(searchText);
+    			 itemsDetails = itemsDetailDAO.getItemsDetailByB_name(searchText);
     		 }
-    		 books.forEach(book -> System.out.println(book.toString())); //받아온 값 출력
-    		 totalinfotextfield.setText(String.valueOf(books.size())); //total: 건수 표시
+    		 itemsDetails.forEach(itemsDetail -> System.out.println(itemsDetail.toString())); //받아온 값 출력
+    		 totalinfotextfield.setText(String.valueOf(itemsDetails.size())); //total: 건수 표시
 			 
-			 tableView.setItems(books);
+			 tableView.setItems(itemsDetails);
 			 checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
 			 checkBoxColumn.setEditable(true);
-			 isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-		     bNameColumn.setCellValueFactory(new PropertyValueFactory<>("bName"));
-		     authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-		     pYearColumn.setCellValueFactory(new PropertyValueFactory<>("pYear"));
+			 bookIDColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
+		     isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+		     bNameColumn.setCellValueFactory(new PropertyValueFactory<>("bName"));   
+		     authorColumn.setCellValueFactory(new PropertyValueFactory<>("author")); 
+		     pYearColumn.setCellValueFactory(new PropertyValueFactory<>("pYear"));  
+		     libraryNameColumn.setCellValueFactory(new PropertyValueFactory<>("libraryName"));
+		     roomNameColumn.setCellValueFactory(new PropertyValueFactory<>("roomName"));
+		     bStatusColumn.setCellValueFactory(new PropertyValueFactory<>("bStatus"));
 		     
 		     //상세페이지
 		     tableView.setOnMouseClicked(event -> {
 		    	    if (event.getClickCount() == 2 && !tableView.getSelectionModel().isEmpty()) {
-		    	    	Book rowData = tableView.getSelectionModel().getSelectedItem(); // 선택한 행의 데이터 가져오기
+		    	    	ItemsDetail rowData = tableView.getSelectionModel().getSelectedItem(); // 선택한 행의 데이터 가져오기
 		    	        
 		    	        // 새 창을 열기 위한 코드 작성
 		    	        // 새 창을 열 때 선택한 행의 데이터를 전달할 수 있습니다.
@@ -171,10 +186,11 @@ public class RootController2 implements Initializable{
     		 System.out.println("검색 내용이 없습니다");
          	 showAlert("검색 내용이 없습니다");
     	 }
+		 
      }
      
-     //table의 각행을 더블클릭시 나오는 화면
-     private void openNewWindow(Book rowData) {
+     //table의 각행을 더블클릭시 나오는 화면event
+     private void openNewWindow(ItemsDetail rowData) {
 		// TODO Auto-generated method stub
     	// 새 창을 생성하고 선택한 데이터를 전달합니다.
     	    Stage stage = new Stage();
