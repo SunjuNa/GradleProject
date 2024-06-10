@@ -3,6 +3,7 @@ package bean.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import bean.dto.Book;
 import javafx.collections.FXCollections;
@@ -62,6 +63,27 @@ public class BookDAOImpl implements BookDAO{
 		}
 		
 		return books;
+	}
+
+	@Override
+	public String insertBooks(List<Book> books) {
+		// TODO Auto-generated method stub
+		String sql = "insert into book(isbn, b_name, author, p_year) values (?,?,?,?)";
+		try(Connection conn = DatabaseUtil.getConnection();
+		    PreparedStatement pstmt = conn.prepareStatement(sql)){
+			for(Book book : books) {
+				pstmt.setString(1, book.getIsbn());
+				pstmt.setString(2, book.getBName());
+				pstmt.setString(3, book.getAuthor());
+				pstmt.setInt(4, book.getPYear());
+				pstmt.addBatch(); //Batch update
+			}
+			pstmt.executeBatch(); //Execute batch update
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "Insert failed: "+ e.getMessage();
+		}
+		return "insert를 성공했습니다";
 	}
 
 }

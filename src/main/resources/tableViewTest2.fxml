@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TVTestController">
+   <children>
+      <ScrollPane prefHeight="663.0" prefWidth="779.0">
+         <content>
+            <VBox prefHeight="736.0" prefWidth="767.0">
+               <children>
+                  <TableView fx:id="myTableView" prefHeight="292.0" prefWidth="780.0">
+                    <columns>
+                        <TableColumn fx:id="checkBoxColumn" prefWidth="62.66671884059906" text="checkbox" />
+                        <TableColumn fx:id="bookIdColumn" prefWidth="48.66668701171875" text="bookId" />
+                        <TableColumn fx:id="isbnColumn" prefWidth="47.33338165283203" text="isbn" />
+                        <TableColumn fx:id="bNameColumn" prefWidth="132.66661071777344" text="bName" />
+                        <TableColumn fx:id="authorColumn" prefWidth="76.666748046875" text="author" />
+                        <TableColumn fx:id="pYearColumn" prefWidth="47.333251953125" text="pYear" />
+                        <TableColumn fx:id="bCopyColumn" prefWidth="47.3333740234375" text="bCopy" />
+                        <TableColumn fx:id="pDateColumn" prefWidth="48.000091552734375" text="pDate" />
+                        <TableColumn fx:id="LibraryNameColumn" prefWidth="84.66665649414062" text="LibraryName" />
+                        <TableColumn fx:id="roomNameColumn" prefWidth="89.3333740234375" text="roomName" />
+                        <TableColumn fx:id="bStatusColumn" prefWidth="81.3333740234375" text="bStatus" />
+                    </columns>
+                  </TableView>
+                  <Pane prefHeight="21.0" prefWidth="780.0" />
+                  <HBox prefHeight="40.0" prefWidth="769.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="74.0" prefWidth="71.0" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="77.0" style="-fx-border-color: black;" text="bookID" textAlignment="CENTER" GridPane.columnIndex="1" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="93.0" style="-fx-border-color: black;" text="isbn" textAlignment="CENTER" GridPane.columnIndex="2" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="109.0" style="-fx-border-color: black;" text="bName" textAlignment="CENTER" GridPane.columnIndex="3" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="81.0" style="-fx-border-color: black;" text="author" textAlignment="CENTER" GridPane.columnIndex="4" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="70.0" style="-fx-border-color: black;" text="pYear" textAlignment="CENTER" GridPane.columnIndex="5" />
+                        <Label alignment="CENTER" prefHeight="74.0" prefWidth="71.0" style="-fx-border-color: black;" text="bCopy" textAlignment="CENTER" GridPane.columnIndex="6" />
+                        <Label alignment="CENTER" prefHeight="74.0" prefWidth="71.0" style="-fx-border-color: black;" text="pDate" textAlignment="CENTER" GridPane.columnIndex="7" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="99.0" style="-fx-border-color: black;" text="libraryName" textAlignment="CENTER" GridPane.columnIndex="8" />
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="83.0" style="-fx-border-color: black;" text="roomName" textAlignment="CENTER" GridPane.columnIndex="9" />
+                        <Label alignment="CENTER" prefHeight="74.0" prefWidth="71.0" style="-fx-border-color: black;" text="bStatus" textAlignment="CENTER" GridPane.columnIndex="10" />
+                        <TextField fx:id="bookIdField" prefHeight="22.0" prefWidth="67.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="isbnField" prefHeight="22.0" prefWidth="66.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <TextField fx:id="bNameField" prefHeight="22.0" prefWidth="63.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <TextField fx:id="authorField" prefHeight="22.0" prefWidth="65.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <TextField fx:id="pYearField" prefHeight="22.0" prefWidth="78.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <TextField fx:id="bCopyField" prefHeight="22.0" prefWidth="78.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="datePicker" prefHeight="22.0" prefWidth="114.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                        <MenuButton fx:id="libraryNameButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="85.0" text="MenuButton" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </MenuButton>
+                        <MenuButton fx:id="roomNameButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="9" GridPane.rowIndex="1">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                           </items>
+                        </MenuButton>
+                        <MenuButton fx:id="bStatusButton" mnemonicParsing="false" text="MenuButton" GridPane.columnIndex="10" GridPane.rowIndex="1">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                           </items>
+                        </MenuButton>
+                        <Button fx:id="addButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleAddButtonAction" prefHeight="22.0" prefWidth="56.0" text="입력" GridPane.columnIndex="11" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

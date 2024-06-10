@@ -13,7 +13,7 @@ public class ItemsDetail {
 	public ItemsDetail(int bookID, String isbn, String bName, String author, int pYear, String libraryName, String roomName,
 			String bStatus) {
 		super();
-		this.bookID = bookID;
+		this.bookID = bookID ;
 		this.isbn=isbn;
 		this.bName = bName;
 		this.author = author;
