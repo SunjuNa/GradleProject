@@ -3,8 +3,11 @@ package bean.dao;
 import javafx.collections.ObservableList;
 
 import java.sql.Date;
+import java.util.List;
 
-import bean.dto.BorrowRecord;
+import bean.dto.BorrowRecordDTO;
+
+
 
 /**
  * @author ps202203
@@ -18,6 +21,10 @@ public interface BorrowRecordDAO {
     //인기 작가, 인기 도서
     String getPopularAuthor(Date date);
     String getPopularBook(Date date);
+    
+    // 그래프 - ListChart
+    List<BorrowRecordDTO> getWeeklyReturns(Date startDate, Date endDate);
+    List<BorrowRecordDTO> getWeeklyBorrows(Date startDate, Date endDate);
     
     
 }

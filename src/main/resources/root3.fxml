@@ -47,13 +47,13 @@
           <RowConstraints maxHeight="699.3333333333333" minHeight="10.0" prefHeight="307.0000406901042" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <LineChart prefHeight="330.0" prefWidth="460.0" GridPane.rowIndex="1">
+             <LineChart fx:id="lineChart" prefHeight="330.0" prefWidth="460.0" GridPane.rowIndex="1">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
+                 <CategoryAxis fx:id="xAxis" label="Date" side="BOTTOM"/>
+               </xAxis>
+               <yAxis>
+                  <NumberAxis fx:id="yAxis" label="Count" tickUnit="1" minorTickCount="0" forceZeroInRange="false" autoRanging="false" lowerBound="0" upperBound="20" />
+               </yAxis>
                <padding>
                   <Insets top="20.0" />
                </padding>

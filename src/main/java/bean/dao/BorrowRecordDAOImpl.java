@@ -4,11 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import bean.dto.BorrowRecordDTO;
+
 import java.sql.Date;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import bean.dto.BorrowRecord;
+
 import util.DatabaseUtil;
 
 /**
@@ -90,6 +95,48 @@ public class BorrowRecordDAOImpl implements BorrowRecordDAO {
         return popularBook;
     }
 	
+    //그래프 - ListChart
+    @Override
+    public List<BorrowRecordDTO> getWeeklyReturns(Date startDate, Date endDate) {
+        List<BorrowRecordDTO> list = new ArrayList<>();
+        String sql = "SELECT RETURN_DATE, COUNT(*) AS return_count FROM BORROWRECORD WHERE RETURN_DATE BETWEEN ? AND ? GROUP BY RETURN_DATE ORDER BY RETURN_DATE";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setDate(1, startDate);
+            pstmt.setDate(2, endDate);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Date date = rs.getDate("RETURN_DATE");
+                    int count = rs.getInt("return_count");
+                    list.add(new BorrowRecordDTO(date, count));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<BorrowRecordDTO> getWeeklyBorrows(Date startDate, Date endDate) {
+        List<BorrowRecordDTO> list = new ArrayList<>();
+        String sql = "SELECT BORROW_DATE, COUNT(*) AS borrow_count FROM BORROWRECORD WHERE BORROW_DATE BETWEEN ? AND ? GROUP BY BORROW_DATE ORDER BY BORROW_DATE";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setDate(1, startDate);
+            pstmt.setDate(2, endDate);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Date date = rs.getDate("BORROW_DATE");
+                    int count = rs.getInt("borrow_count");
+                    list.add(new BorrowRecordDTO(date, count));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 	/*
 	 * @Override public ObservableList<BorrowRecord> getAllBorrowRecords() { String
