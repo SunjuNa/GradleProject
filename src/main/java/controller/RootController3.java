@@ -19,7 +19,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
+/**
+ * @author ps202203
+ */
 public class RootController3 implements Initializable {
 
     @FXML
@@ -36,6 +38,12 @@ public class RootController3 implements Initializable {
 
     @FXML
     private Label borrowCountLabel;
+    
+	@FXML
+	private Label popularAuthorLabel;
+
+	@FXML
+	private Label popularBookLabel;
 
     private BorrowRecordDAO borrowRecordDAO;
 
@@ -44,6 +52,7 @@ public class RootController3 implements Initializable {
         borrowRecordDAO = new BorrowRecordDAOImpl();
     }
 
+    //DatePicker를 이용해서 선택된 특정 날짜의 반납된 도서, 대출현황, 인기작가, 인기도서 확인
     @FXML
     private void handleCountReturns(ActionEvent event) {
         LocalDate localDate = datePicker.getValue();
@@ -51,8 +60,12 @@ public class RootController3 implements Initializable {
             Date date = Date.valueOf(localDate);
             int returnCount = borrowRecordDAO.countReturnsByDate(date);
             int borrowCount = borrowRecordDAO.countBorrowsByDate(date);
+            String popularAuthor = borrowRecordDAO.getPopularAuthor(date);
+            String popularBook = borrowRecordDAO.getPopularBook(date);
             returnCountLabel.setText(String.valueOf(returnCount));
             borrowCountLabel.setText(String.valueOf(borrowCount));
+            popularAuthorLabel.setText(popularAuthor);
+            popularBookLabel.setText(popularBook);
         } else {
             resultLabel.setText("날짜를 선택하세요.");
         }

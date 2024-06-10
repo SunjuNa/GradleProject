@@ -91,24 +91,18 @@
                     </rowConstraints>
                      <children>
                         <Label text="인기작가">
-                           <GridPane.margin>   
-                              <Insets left="20.0" />
-                           </GridPane.margin>
+                        	<GridPane.margin>
+                        	<Insets left="20.0" />
+                        	</GridPane.margin>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="인기도서" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
+                        <Label fx:id="popularAuthorLabel" alignment="CENTER" contentDisplay="CENTER" GridPane.columnIndex="1" />
+                        <Label text="인기도서" GridPane.rowIndex="1">
+                        	<GridPane.margin>
+                        		<Insets left="20.0" />
+                        	</GridPane.margin>
                         </Label>
-                        <TextField GridPane.columnIndex="1">
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin></TextField>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin></TextField>
-                     </children> 
+                        <Label fx:id="popularBookLabel" alignment="CENTER" contentDisplay="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    </children>
                   </GridPane>
                </children>
             </HBox>
