@@ -1,11 +1,24 @@
 package bean.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class BorrowRecord {
-	private int borrow_id;
-	private String bookId;
-	private int user_id;
-	private Date borrow_date;
-	private Date return_date;
+    private String borrowID;
+    private String bookID;
+    private String userID;
+    private Date borrowDate;
+    private Date returnDate;
+    private String status;
+
+    public BorrowRecord(String borrowID, String bookID, String userID, Date borrowDate, Date returnDate, String status) {
+        this.borrowID = borrowID;
+        this.bookID = bookID;
+        this.userID = userID;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
+        this.status = status;
+    }
+
+    // Getters and Setters
+    // ...
 }
