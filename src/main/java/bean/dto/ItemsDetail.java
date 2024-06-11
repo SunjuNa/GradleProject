@@ -1,6 +1,9 @@
 package bean.dto;
 
+import javafx.scene.control.CheckBox;
+
 public class ItemsDetail {
+	private CheckBox checkbox;
 	private int bookID;
 	private String isbn;
 	private String bName;
@@ -13,6 +16,7 @@ public class ItemsDetail {
 	public ItemsDetail(int bookID, String isbn, String bName, String author, int pYear, String libraryName, String roomName,
 			String bStatus) {
 		super();
+		this.checkbox = new CheckBox();
 		this.bookID = bookID ;
 		this.isbn=isbn;
 		this.bName = bName;
@@ -96,5 +100,12 @@ public class ItemsDetail {
 	public void setBStatus(String bStatus) {
 		this.bStatus = bStatus;
 	}
-
+	
+	public CheckBox getCheckbox() {
+    	return checkbox;
+    }
+    public void setCheckBox(CheckBox checkbox) {
+    	this.checkbox = checkbox;
+    }
+	
 }

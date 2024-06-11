@@ -1,12 +1,17 @@
 package controller;
 
+import bean.dao.BookDAO;
+import bean.dao.BookDAOImpl;
 import bean.dao.Book_CopyDAO;
 import bean.dao.ItemsDetailDAO;
 import bean.dao.ItemsDetailDAOImpl;
 import bean.dao.RoomDAO;
+import bean.dto.Book;
 import bean.dto.ItemsDetail;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -27,7 +32,7 @@ public class NewWindowController {
 	@FXML
 	private TextField tfAuthor;
 	@FXML
-	private TextField tfISBN;
+	private Label tfISBN;
 	@FXML
 	private TableView<ItemsDetail> tableView;
 	@FXML
@@ -49,6 +54,9 @@ public class NewWindowController {
 	@FXML
 	private TableColumn<ItemsDetail, String> bStatusColumn;
 	
+	private ItemsDetail jumpData;
+	private BookDAO bookDAO;
+	
 	/**
 	 * @author 나선주
 	 * @param rowData
@@ -58,6 +66,7 @@ public class NewWindowController {
 		// TODO Auto-generated method stub
 		
 		//DAO 초기화
+		bookDAO = new BookDAOImpl();
 //		bookCopyDAO = new Book_CopyDAOImpl();
 		itemsDetailDAO = new ItemsDetailDAOImpl();
 		
@@ -66,6 +75,8 @@ public class NewWindowController {
 		tfsmallTitle.setText(rowData.getBName());
 		tfISBN.setText(rowData.getIsbn());
 		System.out.println("isbn은 "+ rowData.getIsbn());
+		
+		jumpData = rowData;
 		
 		ObservableList<ItemsDetail> itemsDetails;
 		itemsDetails = itemsDetailDAO.getItemsDetailByISBN(rowData.getIsbn());
@@ -88,7 +99,28 @@ public class NewWindowController {
         libraryNameColumn.setCellValueFactory(new PropertyValueFactory<>("libraryName"));
         roomNameColumn.setCellValueFactory(new PropertyValueFactory<>("roomName"));
         bStatusColumn.setCellValueFactory(new PropertyValueFactory<>("bStatus"));
+        
+        //TextField 더블클릭 이벤트 설정
+        setTextFieldDoubleClick(tfGreatTitle);
     }
+	
+	private void setTextFieldDoubleClick(TextField textField) {
+		// TODO Auto-generated method stub
+		textField.setEditable(false);
+		textField.setOnMouseClicked(event -> {
+			if(event.getClickCount() == 2) {
+				textField.setEditable(true);
+				textField.requestFocus();
+			}
+		});
+	}
+
+	@FXML
+	private void pushUpdateButton(ActionEvent event) {
+		Book newBook = new Book(tfISBN.getText(), tfGreatTitle.getText(), tfAuthor.getText(), jumpData.getPYear());
+		bookDAO.updateBooks(newBook);
+		System.out.println("수정하기 버튼이 눌렸습니다");
+	}
 	
 	@FXML
 	private void closeWindow() {

@@ -9,4 +9,5 @@ public interface BookDAO {
 	ObservableList<Book> getBooksByAuthor(String author);
 	ObservableList<Book> getBooksByB_name(String b_name);
 	String insertBooks(List<Book> books);
+	String updateBooks(Book book);
 }

@@ -10,6 +10,7 @@ import bean.dao.ItemsDetailDAO;
 import bean.dao.ItemsDetailDAOImpl;
 import bean.dto.ItemsDetail;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +28,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
@@ -57,9 +58,10 @@ public class RootController2 implements Initializable{
     private MenuItem newWindowMenuItem;
     
     @FXML
+    private TreeView<String> treeView;
+    
+    @FXML
 	private TableView<ItemsDetail> tableView;
-	@FXML
-	private TableColumn<ItemsDetail, Boolean> checkBoxColumn;
 	@FXML
 	private TableColumn<ItemsDetail, Integer> bookIDColumn;
 	@FXML
@@ -89,6 +91,14 @@ public class RootController2 implements Initializable{
 		//DAO초기화
 		bookDAO = new BookDAOImpl();
 		itemsDetailDAO = new ItemsDetailDAOImpl();
+		
+//		TreeItem<String> rootItem = new TreeItem<>("Root");
+//        rootItem.setExpanded(true);
+//        treeView.setRoot(rootItem);
+//
+//        // 루트 디렉토리를 지정합니다. 여기서는 사용자 홈 디렉토리를 사용합니다.
+//        File rootDirectory = new File(System.getProperty("C:\\dev\\workplace\\sampleGradle2"));
+////        createTree(rootDirectory, rootItem);
 	}
 
     @FXML
@@ -185,8 +195,14 @@ public class RootController2 implements Initializable{
     		 totalinfotextfield.setText(String.valueOf(itemsDetails.size())); //total: 건수 표시
 			 
 			 tableView.setItems(itemsDetails);
-			 checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
-			 checkBoxColumn.setEditable(true);
+//			 checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
+//			 checkBoxColumn.setEditable(true);
+			 
+			 TableColumn actionCol = new TableColumn("Action");
+			 tableView.getColumns().add(0, actionCol);
+			 actionCol.setCellValueFactory(
+					 new PropertyValueFactory<ItemsDetail, String>("checkbox")
+					 );
 			 bookIDColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
 		     isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
 		     bNameColumn.setCellValueFactory(new PropertyValueFactory<>("bName"));   
@@ -259,4 +275,23 @@ public class RootController2 implements Initializable{
     		 }
     	 });
      }
+     
+     @FXML
+     private void deleteSelectedRows(ActionEvent event) {
+         ObservableList<ItemsDetail> data = tableView.getItems();
+         ObservableList<ItemsDetail> dataListRemove = FXCollections.observableArrayList();
+         System.out.println("삭제버튼이 실행되고 있습니다");
+         for(ItemsDetail bean : data)
+         {
+            if(bean.getCheckbox().isSelected())
+            {
+              dataListRemove.add(bean);
+              
+            }
+         }
+         data.removeAll(dataListRemove);
+         
+         System.out.println("삭제 버튼이 실행됏습니다");
+     }
+     
 }

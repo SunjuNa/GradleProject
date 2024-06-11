@@ -165,8 +165,6 @@ public class TVTestController implements Initializable{
             e.printStackTrace();
         }
         
-        
-        
 		String libraryNameText = libraryMenuButton.getText();
 		String roomMenuText = roomMenuButton.getText();
 		String bStatusText = statusMenuButton.getText();

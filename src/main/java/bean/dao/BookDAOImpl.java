@@ -86,4 +86,22 @@ public class BookDAOImpl implements BookDAO{
 		return "insert를 성공했습니다";
 	}
 
+	@Override
+	public String updateBooks(Book book) {
+		// TODO Auto-generated method stub
+		String sql = "Update Book set author =?, b_Name= ? where isbn =?";
+		try(Connection conn = DatabaseUtil.getConnection();
+		    PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, book.getAuthor());
+			pstmt.setString(2, book.getBName());
+			pstmt.setString(3, book.getIsbn());
+			pstmt.addBatch(); //Batch update
+			pstmt.executeBatch(); //Execute batch update
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "Update failed: "+ e.getMessage();
+		}
+		return "update를 성공했습니다";
+	}
+
 }
