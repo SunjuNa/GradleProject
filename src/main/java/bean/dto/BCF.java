@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.CheckBox;
 
 public class BCF {
-	private CheckBox checkBox;
+	private CheckBox checkbox;
     private final SimpleStringProperty bookId;
     private final SimpleStringProperty isbn;
     private final SimpleStringProperty bName;
@@ -20,7 +20,7 @@ public class BCF {
 	public BCF(String bookId, String isbn, String bName, String author, Integer pYear, Integer bCopy, String pDate
 			,String libraryName, String roomName, String bStatus ) {
 		super();
-		this.checkBox = new CheckBox();
+		this.checkbox = new CheckBox();
 		this.bookId = new SimpleStringProperty(bookId);
 		this.isbn = new SimpleStringProperty(isbn);
 		this.bName = new SimpleStringProperty(bName);
@@ -102,9 +102,9 @@ public class BCF {
     }
     
     public CheckBox getCheckbox() {
-    	return checkBox;
+    	return checkbox;
     }
     public void setCheckBox(CheckBox checkbox) {
-    	this.checkBox = checkbox;
+    	this.checkbox = checkbox;
     }
 }

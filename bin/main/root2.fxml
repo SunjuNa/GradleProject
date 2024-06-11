@@ -149,7 +149,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="94.0" text="추가">
+            <Button mnemonicParsing="false" onAction="#handleOpenAddPage" prefHeight="34.0" prefWidth="94.0" text="추가">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>

@@ -142,6 +142,32 @@ public class RootController2 implements Initializable{
      }
      
      @FXML
+     private void handleOpenAddPage(ActionEvent event) {
+    	 System.out.println("추가 페이지 버튼이 눌렸습니다");
+    	 String fxmlFile = "tableViewTest.fxml";
+         System.out.println("Loading FXML from: " + getClass().getClassLoader().getResource(fxmlFile));
+         
+         // 파일이 있는지 확인합니다.
+         if (getClass().getClassLoader().getResource(fxmlFile) == null) {
+             throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
+         }
+         
+         try {
+             // FXML 파일 로드
+             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+             Parent root = loader.load();
+
+             // 새 창(Stage) 생성
+             Stage stage = new Stage();
+             stage.setTitle("추가 페이지");
+             stage.setScene(new Scene(root));
+             stage.show();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
+     
+     @FXML
      private void handleSearch() {
     	 String searchText = searchTextField.getText();
     	 System.out.println("메뉴TextField 값 : "+ searchText);
