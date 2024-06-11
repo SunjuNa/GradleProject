@@ -89,7 +89,7 @@ public class TVTestController implements Initializable{
         TableColumn libraryNameCol = new TableColumn("libraryName");
         TableColumn roomNameCol = new TableColumn("roomName");
         TableColumn bStatusCol = new TableColumn("bStatus");
-		
+        actionCol.setStyle("-fx-alignment: CENTER;");
         tableView.getColumns().addAll(actionCol, bookIdCol, isbnCol, bNameCol, authorCol, pYearCol, bCopyCol, pDateCol
         		, libraryNameCol, roomNameCol, bStatusCol);
         

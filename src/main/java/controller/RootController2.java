@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +30,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
@@ -84,6 +87,9 @@ public class RootController2 implements Initializable{
     
     @FXML
     private Button goPage3Button;
+    
+    @FXML
+    private TreeItem treeItem;
 
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -92,15 +98,41 @@ public class RootController2 implements Initializable{
 		bookDAO = new BookDAOImpl();
 		itemsDetailDAO = new ItemsDetailDAOImpl();
 		
-//		TreeItem<String> rootItem = new TreeItem<>("Root");
-//        rootItem.setExpanded(true);
-//        treeView.setRoot(rootItem);
-//
-//        // 루트 디렉토리를 지정합니다. 여기서는 사용자 홈 디렉토리를 사용합니다.
-//        File rootDirectory = new File(System.getProperty("C:\\dev\\workplace\\sampleGradle2"));
-////        createTree(rootDirectory, rootItem);
+		TreeItem<String> rootItem = new TreeItem<>("도서자료");
+		rootItem.setExpanded(true);
+		
+		TreeItem<String> branchItem1  = new TreeItem<>("대출이력");
+		TreeItem<String> branchItem2  = new TreeItem<>("단행본자료");
+		TreeItem<String> branchItem3  = new TreeItem<>("통계자료");
+		
+		TreeItem<String> leafItem1 = new TreeItem<>("대출이력_01");
+		TreeItem<String> leafItem2 = new TreeItem<>("대출이력_02");
+		TreeItem<String> leafItem3 = new TreeItem<>("단행자료_001");
+		TreeItem<String> leafItem4 = new TreeItem<>("단행자료_002");
+		TreeItem<String> leafItem5 = new TreeItem<>("통계자료_001");
+		
+		branchItem1.getChildren().addAll(leafItem1, leafItem2);
+		branchItem2.getChildren().addAll(leafItem3, leafItem4);
+		branchItem3.getChildren().addAll(leafItem5);
+		
+		rootItem.getChildren().addAll(branchItem1, branchItem2, branchItem3); 
+		 // 더블 클릭 이벤트 핸들러 설정
+		
+		treeItem.addEventHandler(null, null);
+		
+		treeView.setRoot(rootItem);
 	}
 
+	private void openFile(File file) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     @FXML
     void closeWindow(ActionEvent event) {
     	Platform.exit();
@@ -200,6 +232,7 @@ public class RootController2 implements Initializable{
 			 
 			 TableColumn actionCol = new TableColumn("Action");
 			 tableView.getColumns().add(0, actionCol);
+			 actionCol.setStyle("-fx-alignment: CENTER;");
 			 actionCol.setCellValueFactory(
 					 new PropertyValueFactory<ItemsDetail, String>("checkbox")
 					 );
