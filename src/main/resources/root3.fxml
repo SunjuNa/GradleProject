@@ -47,25 +47,25 @@
           <RowConstraints maxHeight="699.3333333333333" minHeight="10.0" prefHeight="307.0000406901042" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <LineChart prefHeight="330.0" prefWidth="460.0" GridPane.rowIndex="1">
+             <LineChart fx:id="lineChart" prefHeight="330.0" prefWidth="460.0" GridPane.rowIndex="1">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
+                 <CategoryAxis fx:id="xAxis" label="Date" side="BOTTOM"/>
+               </xAxis>
+               <yAxis>
+                  <NumberAxis fx:id="yAxis" label="Count" tickUnit="1" minorTickCount="0" forceZeroInRange="false" autoRanging="false" lowerBound="0" upperBound="20" />
+               </yAxis>
                <padding>
                   <Insets top="20.0" />
                </padding>
             </LineChart>
-            <HBox prefHeight="268.0" prefWidth="479.0">
+            <HBox prefHeight="400.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="137.0" prefWidth="112.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="82.0" text="반납된 도서" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="70.0" text="220">
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="70.0" text="반납된 도서" />
+                        <Label fx:id="returnCountLabel" alignment="CENTER" text="110" >
                            <font>
-                              <Font size="31.0" />
+                              <Font name="Bodoni MT" size="31.0" />
                            </font>
                         </Label>
                      </children>
@@ -73,9 +73,9 @@
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="30.0" prefWidth="70.0" text="대출현황" />
-                        <Label alignment="CENTER" text="110">
+                        <Label fx:id="borrowCountLabel" alignment="CENTER" text="110">
                            <font>
-                              <Font size="31.0" />
+                              <Font name="Bodoni MT" size="31.0" />
                            </font>
                         </Label>
                      </children>
@@ -91,24 +91,18 @@
                     </rowConstraints>
                      <children>
                         <Label text="인기작가">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
+                        	<GridPane.margin>
+                        	<Insets left="20.0" />
+                        	</GridPane.margin>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="인기도서" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
+                        <Label fx:id="popularAuthorLabel" alignment="CENTER" contentDisplay="CENTER" GridPane.columnIndex="1" />
+                        <Label text="인기도서" GridPane.rowIndex="1">
+                        	<GridPane.margin>
+                        		<Insets left="20.0" />
+                        	</GridPane.margin>
                         </Label>
-                        <TextField GridPane.columnIndex="1">
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin></TextField>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin></TextField>
-                     </children>
+                        <Label fx:id="popularBookLabel" alignment="CENTER" contentDisplay="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    </children>
                   </GridPane>
                </children>
             </HBox>
@@ -128,6 +122,8 @@
             </ScrollPane>
          </children>
       </GridPane>
-      <DatePicker layoutX="185.0" layoutY="14.0" prefHeight="27.0" prefWidth="215.0" />
+      <DatePicker fx:id="datePicker" layoutX="185.0" layoutY="14.0" prefHeight="27.0" prefWidth="215.0" />
+      <Button layoutX="410.0" layoutY="14.0" onAction="#handleCountReturns" text="Count Returns" />
+      <Label fx:id="resultLabel" layoutX="185.0" layoutY="45.0" prefHeight="27.0" prefWidth="215.0" />
    </children>
 </AnchorPane>
