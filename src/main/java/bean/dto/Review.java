@@ -1,15 +1,13 @@
 package bean.dto;
 
-import java.sql.Clob;
-
 public class Review {
 	private int review_id;
 	private String isbn;
 	private int librarian_id;
-	private Clob reviewText;
+	private String reviewText;
 	private int rating;
 	
-	public Review(int review_id, String isbn, int librarian_id, Clob reviewText, int rating) {
+	public Review(int review_id, String isbn, int librarian_id, String reviewText, int rating) {
 		super();
 		this.review_id = review_id;
 		this.isbn = isbn;
@@ -56,13 +54,13 @@ public class Review {
 
 
 
-	public Clob getReviewText() {
+	public String getReviewText() {
 		return reviewText;
 	}
 
 
 
-	public void setReviewText(Clob reviewText) {
+	public void setReviewText(String reviewText) {
 		this.reviewText = reviewText;
 	}
 

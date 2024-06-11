@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Clob;
 import java.sql.SQLException;
 
 import bean.dao.BookDAO;
@@ -87,12 +86,10 @@ public class NewWindowController {
 		
 		for(Review review : reviews) {
 			TextArea tA = new TextArea();
-			tA.setText(String.valueOf(review.getRating())+"점"+"\n");
-			Clob clob = review.getReviewText();
-			String reviewText;
-			
-			
-//			tA.setText(reviewText);
+			String reviewText = review.getReviewText();
+			tA.setText(String.valueOf(review.getRating())+"점"+"\n"+reviewText);
+			tA.setWrapText(true);
+			tA.setPrefHeight(100);
 			container.getChildren().add(tA);
 		}
 		

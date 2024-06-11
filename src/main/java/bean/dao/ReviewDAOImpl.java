@@ -13,7 +13,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 
 	@Override
 	public ObservableList<Review> selectisbn(String isbn) {
-	    String sql = "select * from review where isbn = ?";
+	    String sql = "select review_id, isbn, librarian_id, DBMS_LOB.SUBSTR(reviewtext,4000,1) AS reviewText, rating from review where isbn = ?";
 	    ObservableList<Review> reviews = FXCollections.observableArrayList();
 	    try (Connection conn = DatabaseUtil.getConnection();
 	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -28,7 +28,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	        System.out.println(rs.toString());
 	        while(rs.next()) {
 	        	reviews.add(new Review(rs.getInt("review_id"), rs.getString("isbn"), rs.getInt("librarian_id")
-	        			, rs.getClob("reviewText"), rs.getInt("rating")
+	        			, rs.getString("reviewText"), rs.getInt("rating")
 	        			));
 	        }
 	    } catch (Exception e) {
