@@ -118,7 +118,7 @@ public class RootController2 implements Initializable{
 		rootItem.getChildren().addAll(branchItem1, branchItem2, branchItem3); 
 		 // 더블 클릭 이벤트 핸들러 설정
 		
-		treeItem.addEventHandler(null, null);
+		//treeItem.addEventHandler(null, null);
 		
 		treeView.setRoot(rootItem);
 	}
