@@ -1,16 +1,14 @@
 package bean.dto;
 
-import java.util.Date;
-
 public class Book_Copy {
 	private String bookid;
 	private String isbn;
 	private int b_copy;
-	private Date p_date;
+	private String p_date;
 	private int room_id;
 	private int status_id;
 	
-	public Book_Copy(String bookid, String isbn, int b_copy, Date p_date, int room_id, int status_id) {
+	public Book_Copy(String bookid, String isbn, int b_copy, String p_date, int room_id, int status_id) {
 		super();
 		this.bookid = bookid;
 		this.isbn = isbn;
@@ -20,6 +18,17 @@ public class Book_Copy {
 		this.status_id = status_id;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Book_copy{ bookid='"+bookid+'\''+
+				",isbn="+isbn+", b_copy="+b_copy+
+				",p_date="+p_date+", room_id="+room_id+
+				",room_id="+room_id+", status_id="+status_id+'}';
+	}
+
+
+
 	public String getBookid() {
 		return bookid;
 	}
@@ -38,10 +47,10 @@ public class Book_Copy {
 	public void setB_copy(int b_copy) {
 		this.b_copy = b_copy;
 	}
-	public Date getP_date() {
+	public String getP_date() {
 		return p_date;
 	}
-	public void setP_date(Date p_date) {
+	public void setP_date(String p_date) {
 		this.p_date = p_date;
 	}
 	public int getRoom_id() {

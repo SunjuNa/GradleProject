@@ -8,11 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class AppMain2 extends Application {
-
+public class AddBookPage2 extends Application {
+	
 	@Override
 	public void start(Stage primaryStage) {
-		String fxmlFile = "root2.fxml";
+		String fxmlFile = "addBookPage.fxml";
         System.out.println("Loading FXML from: " + getClass().getClassLoader().getResource(fxmlFile));
 
         // 파일이 있는지 확인합니다.
@@ -21,11 +21,12 @@ public class AppMain2 extends Application {
         }
 		
 		try {
-			Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
-//			Parent root = FXMLLoader.load(getClass().getResource("root2.fxml"));
+			 Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
+//			Parent root = FXMLLoader.load(AppMain1.class.getResource(fxmlFile));
+//			Parent root = FXMLLoader.load(getClass().getResource("/resources/root1.fxml"));
 			Scene scene = new Scene(root);
 			
-			primaryStage.setTitle("AppMain");
+			primaryStage.setTitle("addBookPage");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setResizable(false);
@@ -34,8 +35,12 @@ public class AppMain2 extends Application {
 			e.printStackTrace();
 		}
 	}
+
+	
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	
 }

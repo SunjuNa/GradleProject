@@ -1,13 +1,18 @@
 package controller;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import bean.dao.BookDAO;
 import bean.dao.BookDAOImpl;
-import bean.dto.Book;
+import bean.dao.ItemsDetailDAO;
+import bean.dao.ItemsDetailDAOImpl;
+import bean.dto.ItemsDetail;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +30,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
@@ -33,6 +39,7 @@ import javafx.stage.Stage;
 
 public class RootController2 implements Initializable{
 	private BookDAO bookDAO;
+	private ItemsDetailDAO itemsDetailDAO;
 	
     @FXML
     private MenuItem closeButton;
@@ -49,36 +56,83 @@ public class RootController2 implements Initializable{
     
     @FXML
     private String selectedAuthor;
-    @FXML
-    private TableView<Book> tableView;
     
     @FXML
     private MenuItem newWindowMenuItem;
     
     @FXML
-    private TableColumn<Book, Boolean> checkBoxColumn;
-    @FXML
-    private TableColumn<Book, String> isbnColumn;
-    @FXML
-    private TableColumn<Book, String> bNameColumn;
-    @FXML
-    private TableColumn<Book, String> authorColumn;
-    @FXML
-    private TableColumn<Book, Integer> pYearColumn;
+    private TreeView<String> treeView;
     
+    @FXML
+	private TableView<ItemsDetail> tableView;
+	@FXML
+	private TableColumn<ItemsDetail, Integer> bookIDColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> isbnColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> bNameColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> authorColumn;
+	@FXML
+	private TableColumn<ItemsDetail, Integer> pYearColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> libraryNameColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> roomNameColumn;
+	@FXML
+	private TableColumn<ItemsDetail, String> bStatusColumn;
+	
     @FXML
     private TextField totalinfotextfield;
     
     @FXML
     private Button goPage3Button;
+    
+    @FXML
+    private TreeItem treeItem;
 
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		//DAO초기화
 		bookDAO = new BookDAOImpl();
+		itemsDetailDAO = new ItemsDetailDAOImpl();
+		
+		TreeItem<String> rootItem = new TreeItem<>("도서자료");
+		rootItem.setExpanded(true);
+		
+		TreeItem<String> branchItem1  = new TreeItem<>("대출이력");
+		TreeItem<String> branchItem2  = new TreeItem<>("단행본자료");
+		TreeItem<String> branchItem3  = new TreeItem<>("통계자료");
+		
+		TreeItem<String> leafItem1 = new TreeItem<>("대출이력_01");
+		TreeItem<String> leafItem2 = new TreeItem<>("대출이력_02");
+		TreeItem<String> leafItem3 = new TreeItem<>("단행자료_001");
+		TreeItem<String> leafItem4 = new TreeItem<>("단행자료_002");
+		TreeItem<String> leafItem5 = new TreeItem<>("통계자료_001");
+		
+		branchItem1.getChildren().addAll(leafItem1, leafItem2);
+		branchItem2.getChildren().addAll(leafItem3, leafItem4);
+		branchItem3.getChildren().addAll(leafItem5);
+		
+		rootItem.getChildren().addAll(branchItem1, branchItem2, branchItem3); 
+		 // 더블 클릭 이벤트 핸들러 설정
+		
+		treeItem.addEventHandler(null, null);
+		
+		treeView.setRoot(rootItem);
 	}
 
+	private void openFile(File file) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     @FXML
     void closeWindow(ActionEvent event) {
     	Platform.exit();
@@ -130,35 +184,71 @@ public class RootController2 implements Initializable{
      }
      
      @FXML
+     private void handleOpenAddPage(ActionEvent event) {
+    	 System.out.println("추가 페이지 버튼이 눌렸습니다");
+    	 String fxmlFile = "tableViewTest.fxml";
+         System.out.println("Loading FXML from: " + getClass().getClassLoader().getResource(fxmlFile));
+         
+         // 파일이 있는지 확인합니다.
+         if (getClass().getClassLoader().getResource(fxmlFile) == null) {
+             throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
+         }
+         
+         try {
+             // FXML 파일 로드
+             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+             Parent root = loader.load();
+
+             // 새 창(Stage) 생성
+             Stage stage = new Stage();
+             stage.setTitle("추가 페이지");
+             stage.setScene(new Scene(root));
+             stage.show();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
+     
+     @FXML
      private void handleSearch() {
     	 String searchText = searchTextField.getText();
     	 System.out.println("메뉴TextField 값 : "+ searchText);
     	 if(searchText !=null && !searchText.isEmpty()) {
-    		 ObservableList<Book> books;
+    		 ObservableList<ItemsDetail> itemsDetails;
     		 if(searchType.equals("전체")) {
     			 //둘다 해당
-    			 books = bookDAO.getBooksByAuthor(searchText);
-    			 books.addAll(bookDAO.getBooksByB_name(searchText));
+    			 itemsDetails=itemsDetailDAO.getItemsDetailByB_nameOrAuthor(searchText);
     		 }else if(searchType.equals("저자")) {
-    			 books = bookDAO.getBooksByAuthor(searchText);
+    			 itemsDetails =itemsDetailDAO.getItemsDetailByAuthor(searchText);
     		 }else {
-    			 books = bookDAO.getBooksByB_name(searchText);
+    			 itemsDetails = itemsDetailDAO.getItemsDetailByB_name(searchText);
     		 }
-    		 books.forEach(book -> System.out.println(book.toString())); //받아온 값 출력
-    		 totalinfotextfield.setText(String.valueOf(books.size())); //total: 건수 표시
+    		 itemsDetails.forEach(itemsDetail -> System.out.println(itemsDetail.toString())); //받아온 값 출력
+    		 totalinfotextfield.setText(String.valueOf(itemsDetails.size())); //total: 건수 표시
 			 
-			 tableView.setItems(books);
-			 checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
-			 checkBoxColumn.setEditable(true);
-			 isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-		     bNameColumn.setCellValueFactory(new PropertyValueFactory<>("bName"));
-		     authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-		     pYearColumn.setCellValueFactory(new PropertyValueFactory<>("pYear"));
+			 tableView.setItems(itemsDetails);
+//			 checkBoxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
+//			 checkBoxColumn.setEditable(true);
+			 
+			 TableColumn actionCol = new TableColumn("Action");
+			 tableView.getColumns().add(0, actionCol);
+			 actionCol.setStyle("-fx-alignment: CENTER;");
+			 actionCol.setCellValueFactory(
+					 new PropertyValueFactory<ItemsDetail, String>("checkbox")
+					 );
+			 bookIDColumn.setCellValueFactory(new PropertyValueFactory<>("bookID"));
+		     isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+		     bNameColumn.setCellValueFactory(new PropertyValueFactory<>("bName"));   
+		     authorColumn.setCellValueFactory(new PropertyValueFactory<>("author")); 
+		     pYearColumn.setCellValueFactory(new PropertyValueFactory<>("pYear"));  
+		     libraryNameColumn.setCellValueFactory(new PropertyValueFactory<>("libraryName"));
+		     roomNameColumn.setCellValueFactory(new PropertyValueFactory<>("roomName"));
+		     bStatusColumn.setCellValueFactory(new PropertyValueFactory<>("bStatus"));
 		     
 		     //상세페이지
 		     tableView.setOnMouseClicked(event -> {
 		    	    if (event.getClickCount() == 2 && !tableView.getSelectionModel().isEmpty()) {
-		    	    	Book rowData = tableView.getSelectionModel().getSelectedItem(); // 선택한 행의 데이터 가져오기
+		    	    	ItemsDetail rowData = tableView.getSelectionModel().getSelectedItem(); // 선택한 행의 데이터 가져오기
 		    	        
 		    	        // 새 창을 열기 위한 코드 작성
 		    	        // 새 창을 열 때 선택한 행의 데이터를 전달할 수 있습니다.
@@ -171,10 +261,11 @@ public class RootController2 implements Initializable{
     		 System.out.println("검색 내용이 없습니다");
          	 showAlert("검색 내용이 없습니다");
     	 }
+		 
      }
      
-     //table의 각행을 더블클릭시 나오는 화면
-     private void openNewWindow(Book rowData) {
+     //table의 각행을 더블클릭시 나오는 화면event
+     private void openNewWindow(ItemsDetail rowData) {
 		// TODO Auto-generated method stub
     	// 새 창을 생성하고 선택한 데이터를 전달합니다.
     	    Stage stage = new Stage();
@@ -217,4 +308,23 @@ public class RootController2 implements Initializable{
     		 }
     	 });
      }
+     
+     @FXML
+     private void deleteSelectedRows(ActionEvent event) {
+         ObservableList<ItemsDetail> data = tableView.getItems();
+         ObservableList<ItemsDetail> dataListRemove = FXCollections.observableArrayList();
+         System.out.println("삭제버튼이 실행되고 있습니다");
+         for(ItemsDetail bean : data)
+         {
+            if(bean.getCheckbox().isSelected())
+            {
+              dataListRemove.add(bean);
+              
+            }
+         }
+         data.removeAll(dataListRemove);
+         
+         System.out.println("삭제 버튼이 실행됏습니다");
+     }
+     
 }

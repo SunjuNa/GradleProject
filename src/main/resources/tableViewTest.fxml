@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TVTestController">
+   <children>
+      <ScrollPane layoutX="2.0" layoutY="1.0" prefHeight="483.0" prefWidth="841.0">
+         <content>
+            <VBox prefHeight="496.0" prefWidth="782.0">
+               <children>
+                  <TableView fx:id="tableView" prefHeight="261.0" prefWidth="782.0" />
+                  <GridPane fx:id="gridPane" prefHeight="106.0" prefWidth="782.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="196.0" style="-fx-border-color: black;" text="isbn" textAlignment="CENTER" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: black;" text="bName" textAlignment="CENTER" GridPane.columnIndex="1" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="236.0" style="-fx-border-color: black;" text="author" textAlignment="CENTER" GridPane.columnIndex="2" />
+                        <TextField fx:id="isbnTf" GridPane.rowIndex="1" />
+                        <TextField fx:id="bNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="authorTf" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" onAction="#handleInput" prefHeight="22.0" prefWidth="173.0" text="입력" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="149.0" style="-fx-border-color: black;" text="pYear" textAlignment="CENTER" GridPane.columnIndex="3" />
+                        <TextField fx:id="pYearTf" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="149.0" style="-fx-border-color: black;" text="bCopy" textAlignment="CENTER" GridPane.columnIndex="4" />
+                        <TextField fx:id="bCopyTf" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="149.0" style="-fx-border-color: black;" text="pDate" textAlignment="CENTER" GridPane.columnIndex="5" />
+                        <DatePicker fx:id="datePk" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="149.0" style="-fx-border-color: black;" text="libraryName" textAlignment="CENTER" GridPane.columnIndex="6" />
+                        <MenuButton fx:id="libraryMenuButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="103.0" text="전체" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#handleLibraryMenuItem" text="남산4동작은도서관" />
+                            <MenuItem mnemonicParsing="false" onAction="#handleLibraryMenuItem" text="동구 해안동 작은도서관" />
+                              <MenuItem mnemonicParsing="false" onAction="#handleLibraryMenuItem" text="서구청작은도서관" />
+                          </items>
+                        </MenuButton>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="149.0" style="-fx-border-color: black;" text="roomName" textAlignment="CENTER" GridPane.columnIndex="7" />
+                        <MenuButton fx:id="roomMenuButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="84.0" text="전체" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#handleRoomMenuItem" text="[남산4동]일반자료실" />
+                            <MenuItem mnemonicParsing="false" onAction="#handleRoomMenuItem" text="[해안동]일반자료실" />
+                              <MenuItem mnemonicParsing="false" onAction="#handleRoomMenuItem" text="[서구청]자료실" />
+                          </items>
+                        </MenuButton>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="149.0" style="-fx-border-color: black;" text="bStatus" textAlignment="CENTER" GridPane.columnIndex="8" />
+                        <MenuButton fx:id="statusMenuButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="90.0" text="전체" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#handleStatusMenuItem" text="대출불가능" />
+                            <MenuItem mnemonicParsing="false" onAction="#handleStatusMenuItem" text="대출가능" />
+                              <MenuItem mnemonicParsing="false" onAction="#handleStatusMenuItem" text="파손" />
+                          </items>
+                        </MenuButton>
+                     </children>
+                  </GridPane>
+                  <HBox prefHeight="30.0" prefWidth="782.0" />
+                  <HBox prefHeight="39.0" prefWidth="782.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#deleteSelectedRows" prefHeight="22.0" prefWidth="237.0" text="행삭제">
+                           <HBox.margin>
+                              <Insets right="300.0" />
+                           </HBox.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#saveSelectedRows" prefHeight="22.0" prefWidth="244.0" text="최종입력" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
