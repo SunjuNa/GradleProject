@@ -18,6 +18,10 @@ public class Book_Copy {
 		this.status_id = status_id;
 	}
 	
+	public Book_Copy(String bookid) {
+		this.bookid=bookid;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
