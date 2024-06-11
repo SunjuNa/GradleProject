@@ -22,10 +22,10 @@ public class LibrarianDAOImpl implements LibrarianDAO{
          	
          	if(rs.next()) {
          		librarian = new Librarian();
-         		librarian.setLibrarian_id(rs.getInt("id"));
-         		librarian.setL_name(rs.getString("name"));
-         		librarian.setL_email(rs.getString("email"));
-         		librarian.setL_phone(rs.getString("phone"));
+         		librarian.setLibrarian_id(rs.getInt("librarian_id"));
+         		librarian.setL_name(rs.getString("l_name"));
+         		librarian.setL_email(rs.getString("l_email"));
+         		librarian.setL_phone(rs.getString("l_phone"));
          	}
          	
 		} catch (Exception e) {
