@@ -20,6 +20,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+/**
+ * @author 나선주
+ *
+ */
+
 public class RootController1 implements Initializable{
 
 	@FXML
@@ -31,6 +36,7 @@ public class RootController1 implements Initializable{
     @FXML
     void handleButtonClick() {
     	String text = textField.getText();
+    	int librarian_id = Integer.parseInt(textField.getText());  
     	System.out.println("TextField 값 : "+ text);
     	int text_number = Integer.parseInt(text); 
     	
@@ -50,9 +56,19 @@ public class RootController1 implements Initializable{
                 if (getClass().getClassLoader().getResource(fxmlFile) == null) {
                     throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
                 }
-        		Parent secondScene = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
+                
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+        		Parent secondScene = loader.load();
                 Scene scene = new Scene(secondScene);
                 stage.setScene(scene);
+                
+                //2번페이지에 컨트롤러 접근하여 데이터 전달
+                RootController2 controller = loader.getController();
+                controller.setLibrarian(librarian);
+                
+                //myPage에 id를 전달함
+               
+                
     		}catch(IOException ioException){
     			ioException.printStackTrace();
     		}
@@ -72,7 +88,7 @@ public class RootController1 implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-	
+		
 	}
 	
 	private void showAlert(String message) {

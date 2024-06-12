@@ -17,6 +17,7 @@ import bean.dao.ItemsDetailDAO;
 import bean.dao.ItemsDetailDAOImpl;
 import bean.dto.Book_Copy;
 import bean.dto.ItemsDetail;
+import bean.dto.Librarian;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -102,6 +103,8 @@ public class RootController2 implements Initializable{
     @FXML
     private Book_CopyDAO book_CopyDAO;
 
+    private Librarian librarian;
+    
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -169,11 +172,13 @@ public class RootController2 implements Initializable{
             if (getClass().getClassLoader().getResource(fxmlFile) == null) {
                 throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
             }
-    		Parent secondScene = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
-            Scene scene = new Scene(secondScene);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+    		Parent thirdScene = loader.load();
+            Scene scene = new Scene(thirdScene);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -393,21 +398,35 @@ public class RootController2 implements Initializable{
      
 	@FXML
     void goMyPage(ActionEvent event) {
-    	try {
+		try {
     		String fxmlFile = "MyPage.fxml";
     		System.out.println("Loading FXML from: " + getClass().getClassLoader().getResource(fxmlFile));
     		// 파일이 있는지 확인합니다.
             if (getClass().getClassLoader().getResource(fxmlFile) == null) {
                 throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
             }
-    		Parent secondScene = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+    		Parent secondScene = loader.load();
             Scene scene = new Scene(secondScene);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            
+            MyPageController controller = loader.getController();
+            controller.setLibrarian(librarian);
+            if(librarian !=null ) {
+            	controller.initData();
+            }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
     }
+	
+	public void setLibrarian(Librarian librarian) {
+		this.librarian = librarian;
+	}
+	
+	
 }

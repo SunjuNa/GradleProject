@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import bean.dto.Librarian;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,9 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class RootController3 implements Initializable{
-
+	
+	private Librarian librarian;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -34,11 +37,15 @@ public class RootController3 implements Initializable{
             if (getClass().getClassLoader().getResource(fxmlFile) == null) {
                 throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
             }
-    		Parent secondScene = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+    		Parent secondScene = loader.load();
             Scene scene = new Scene(secondScene);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            
+            RootController2 controller = loader.getController();
+            controller.setLibrarian(librarian);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,14 +61,23 @@ public class RootController3 implements Initializable{
             if (getClass().getClassLoader().getResource(fxmlFile) == null) {
                 throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
             }
-    		Parent secondScene = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
-            Scene scene = new Scene(secondScene);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+    		Parent secondScene = loader.load();            
+    		Scene scene = new Scene(secondScene);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            
+            MyPageController controller = loader.getController();
+            controller.setLibrarian(librarian);
+            controller.initData();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    
+    public void setLibrarian(Librarian librarian) {
+    	this.librarian = librarian;
     }
 }

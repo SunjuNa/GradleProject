@@ -6,6 +6,15 @@ public class Librarian {
 	private String l_email;
 	private String l_phone;
 	
+	public Librarian(int librarian_id, String l_name, String l_email, String l_phone) {
+		super();
+		this.librarian_id = librarian_id;
+		this.l_name = l_name;
+		this.l_email = l_email;
+		this.l_phone = l_phone;
+	}
+	
+	
 	public int getLibrarian_id() {
 		return librarian_id;
 	}
