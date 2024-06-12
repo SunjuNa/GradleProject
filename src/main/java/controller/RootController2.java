@@ -4,17 +4,25 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import bean.dao.BookDAO;
 import bean.dao.BookDAOImpl;
+import bean.dao.Book_CopyDAO;
+import bean.dao.Book_CopyDAOImpl;
 import bean.dao.ItemsDetailDAO;
 import bean.dao.ItemsDetailDAOImpl;
+import bean.dto.Book_Copy;
 import bean.dto.ItemsDetail;
+import bean.dto.Librarian;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -90,12 +99,18 @@ public class RootController2 implements Initializable{
     
     @FXML
     private TreeItem treeItem;
+    
+    @FXML
+    private Book_CopyDAO book_CopyDAO;
 
+    private Librarian librarian;
+    
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		//DAO초기화
 		bookDAO = new BookDAOImpl();
+		book_CopyDAO = new Book_CopyDAOImpl();
 		itemsDetailDAO = new ItemsDetailDAOImpl();
 		
 		TreeItem<String> rootItem = new TreeItem<>("도서자료");
@@ -118,20 +133,32 @@ public class RootController2 implements Initializable{
 		rootItem.getChildren().addAll(branchItem1, branchItem2, branchItem3); 
 		 // 더블 클릭 이벤트 핸들러 설정
 		
-		//treeItem.addEventHandler(null, null);
+		Button button1 = new Button("Action1");
+		leafItem1.setGraphic(button1); //setting  the button as the graphic of the TreeItem
+
 		
 		treeView.setRoot(rootItem);
+		
+		button1.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				String filePath = "C:\\2024_sjNa\\05_협회프로젝트\\1차프로젝트\\데이터\\원래자료\\대구광역시_공공도서관 단행자료 대출 이력_20230906\\대출이력_036_0827_0901.csv";
+				File file = new File(filePath);
+				if(file.exists()) {
+				    try {
+						Desktop.getDesktop().open(file);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			
+		});
 	}
 
-	private void openFile(File file) {
-        if (Desktop.isDesktopSupported()) {
-            try {
-                Desktop.getDesktop().open(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
     
     @FXML
     void closeWindow(ActionEvent event) {
@@ -146,11 +173,13 @@ public class RootController2 implements Initializable{
             if (getClass().getClassLoader().getResource(fxmlFile) == null) {
                 throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
             }
-    		Parent secondScene = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFile));
-            Scene scene = new Scene(secondScene);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+    		Parent thirdScene = loader.load();
+            Scene scene = new Scene(thirdScene);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -313,18 +342,92 @@ public class RootController2 implements Initializable{
      private void deleteSelectedRows(ActionEvent event) {
          ObservableList<ItemsDetail> data = tableView.getItems();
          ObservableList<ItemsDetail> dataListRemove = FXCollections.observableArrayList();
+         List<Book_Copy> bookCopys = new ArrayList<>();
+         
          System.out.println("삭제버튼이 실행되고 있습니다");
+         
+         if(data.size()==0) {
+             // 입력되었음을 알리는 Alert
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("정보");
+                alert.setHeaderText(null);
+                alert.setContentText("삭제할 데이터가 체크되지 않았습니다");
+                alert.showAndWait();
+         }
+         
          for(ItemsDetail bean : data)
          {
             if(bean.getCheckbox().isSelected())
             {
+              showConfirmationDialog();
               dataListRemove.add(bean);
-              
+              bookCopys.add(new Book_Copy(String.valueOf(bean.getBookID())));
             }
          }
          data.removeAll(dataListRemove);
+//         book_CopyDAO.deleteBookCopys(bookCopys);
          
          System.out.println("삭제 버튼이 실행됏습니다");
      }
+
+
+	private void showConfirmationDialog() {
+		// TODO Auto-generated method stub
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("정말 삭제하시겠습니까?");
+
+        ButtonType buttonTypeYes = new ButtonType("Yes");
+        ButtonType buttonTypeNo = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            // User clicked "Yes", proceed with the action
+        	 Alert alert2 = new Alert(AlertType.INFORMATION);
+             alert2.setTitle("정보");
+             alert2.setHeaderText(null);
+             alert2.setContentText("삭제되었습니다");
+             alert2.showAndWait();
+        } else {
+            // User clicked "No" or closed the dialog, just close the alert
+            alert.close();
+        }
+	}
      
+	@FXML
+    void goMyPage(ActionEvent event) {
+		try {
+    		String fxmlFile = "MyPage.fxml";
+    		System.out.println("Loading FXML from: " + getClass().getClassLoader().getResource(fxmlFile));
+    		// 파일이 있는지 확인합니다.
+            if (getClass().getClassLoader().getResource(fxmlFile) == null) {
+                throw new RuntimeException("Cannot find FXML file: " + fxmlFile);
+            }
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlFile));
+    		Parent secondScene = loader.load();
+            Scene scene = new Scene(secondScene);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+            
+            MyPageController controller = loader.getController();
+            controller.setLibrarian(librarian);
+            if(librarian !=null ) {
+            	controller.initData();
+            }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    }
+	
+	public void setLibrarian(Librarian librarian) {
+		this.librarian = librarian;
+	}
+	
+	
 }

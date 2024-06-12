@@ -67,4 +67,24 @@ public class Book_CopyDAOImpl implements Book_CopyDAO{
 		return "bookCopy insert를 성공했습니다";
 	}
 
+	@Override
+	public String deleteBookCopys(List<Book_Copy> bookCopys) {
+		// TODO Auto-generated method stub
+		String sql = "delete from book_copy where bookid = ?";
+		ObservableList<Book_Copy> bookcopys = FXCollections.observableArrayList();
+		try(Connection conn = DatabaseUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)){
+			for(Book_Copy bookCopy : bookCopys) {
+				pstmt.setString(1, bookCopy.getBookid());
+				pstmt.addBatch(); //Batch update
+			}
+				pstmt.executeBatch();
+			}catch(Exception e) {
+				e.printStackTrace();
+				return "Delete failed: " + e.getMessage();
+			}
+			
+			return "삭제를 시행했습니다";
+	}
+
 }

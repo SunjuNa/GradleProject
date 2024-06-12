@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="controller.RootController3" prefHeight="871.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="871.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController3">
    <children>
       <Label prefHeight="882.0" prefWidth="661.0" style="-fx-background-color: C7E4E1;" />
       <VBox prefHeight="882.0" prefWidth="178.0" style="-fx-background-color: DEF0D7;">
@@ -34,7 +34,7 @@
                </children>
             </Pane>
             <Button fx:id="goPage2Button" mnemonicParsing="false" onAction="#goPage2" prefHeight="81.0" prefWidth="216.0" text="도서관리페이지로" />
-            <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="216.0" text="마이페이지" />
+            <Button mnemonicParsing="false" onAction="#goMyPage" prefHeight="81.0" prefWidth="216.0" text="마이페이지" />
          </children>
       </VBox>
       <GridPane layoutX="178.0" layoutY="52.0" prefHeight="817.0" prefWidth="480.0">

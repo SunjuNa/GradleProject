@@ -21,11 +21,13 @@ public class LibrarianDAOImpl implements LibrarianDAO{
          	ResultSet rs = pstmt.executeQuery();
          	
          	if(rs.next()) {
-         		librarian = new Librarian();
-         		librarian.setLibrarian_id(rs.getInt("librarian_id"));
-         		librarian.setL_name(rs.getString("l_name"));
-         		librarian.setL_email(rs.getString("l_email"));
-         		librarian.setL_phone(rs.getString("l_phone"));
+         		librarian = new Librarian(rs.getInt("librarian_id"), 
+         				rs.getString("l_name"), rs.getString("l_email"), rs.getString("l_phone"));
+//         		librarian.setLibrarian_id(rs.getInt("librarian_id"));
+//         		librarian.setL_name(rs.getString("l_name"));
+//         		librarian.setL_email(rs.getString("l_email"));
+//         		librarian.setL_phone(rs.getString("l_phone"));
+
          	}
          	
 		} catch (Exception e) {
@@ -35,6 +37,24 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		
 		
 		return librarian;
+	}
+
+	@Override
+	public String updateLibrarian(Librarian librarian) {
+		// TODO Auto-generated method stub
+		String sql = "Update Librarian set l_email = ? , l_phone=? where librarian_id = ?";
+		try(Connection conn = DatabaseUtil.getConnection();
+			    PreparedStatement pstmt = conn.prepareStatement(sql)){
+				pstmt.setString(1, librarian.getL_email());
+				pstmt.setString(2, librarian.getL_phone());
+				pstmt.setInt(3, librarian.getLibrarian_id());
+				pstmt.addBatch(); //Batch update
+				pstmt.executeBatch(); //Execute batch update
+			}catch(Exception e) {
+				e.printStackTrace();
+				return "Update failed: "+ e.getMessage();
+			}
+			return "update를 성공했습니다";
 	}
 
 }

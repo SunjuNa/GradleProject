@@ -33,6 +33,7 @@ public class AppMain1 extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setResizable(false);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
