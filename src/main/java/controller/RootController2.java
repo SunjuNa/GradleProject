@@ -135,6 +135,7 @@ public class RootController2 implements Initializable{
 		
 		Button button1 = new Button("Action1");
 		leafItem1.setGraphic(button1); //setting  the button as the graphic of the TreeItem
+
 		
 		treeView.setRoot(rootItem);
 		

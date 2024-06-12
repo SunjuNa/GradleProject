@@ -48,7 +48,7 @@ public class RootController1 implements Initializable{
     	if(librarian != null) {
     		try {
         		Stage stage = (Stage)textField.getScene().getWindow();
-        		String fxmlFile = "root2.fxml";
+        		String fxmlFile = "root2.fxml"; 
                 System.out.println("Loading FXML from: " + getClass().getClassLoader().getResource(fxmlFile));
 
                 // 파일이 있는지 확인합니다.

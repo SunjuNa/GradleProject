@@ -27,6 +27,7 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 //         		librarian.setL_name(rs.getString("l_name"));
 //         		librarian.setL_email(rs.getString("l_email"));
 //         		librarian.setL_phone(rs.getString("l_phone"));
+
          	}
          	
 		} catch (Exception e) {
