@@ -6,8 +6,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -62,7 +60,7 @@
       <HBox alignment="CENTER_LEFT" layoutX="204.0" layoutY="310.0" prefHeight="44.0" prefWidth="424.0" style="-fx-background-color: lightgray;">
          <children>
             <Label prefHeight="59.0" prefWidth="109.0" text="리뷰 이력" />
-            <TextField alignment="CENTER" prefHeight="22.0" prefWidth="117.0" />
+            <TextField fx:id="reviewTf" alignment="CENTER" prefHeight="22.0" prefWidth="117.0" />
             <Label prefHeight="65.0" prefWidth="87.0" text=" 건 검색" />
          </children>
          <opaqueInsets>
@@ -72,24 +70,15 @@
             <Insets left="20.0" />
          </padding>
       </HBox>
-      <TabPane layoutX="204.0" layoutY="354.0" prefHeight="200.0" prefWidth="424.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="204.0" layoutY="354.0" prefHeight="237.0" prefWidth="424.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab text="전체">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="242.0" prefWidth="424.0">
                      <children>
-                        <ScrollPane prefHeight="171.0" prefWidth="424.0">
+                        <ScrollPane prefHeight="210.0" prefWidth="424.0">
                            <content>
-                              <VBox prefHeight="262.0" prefWidth="412.0">
-                                 <children>
-                                    <TableView prefHeight="200.0" prefWidth="356.0">
-                                       <columns>
-                                          <TableColumn prefWidth="75.0" text="C1" />
-                                          <TableColumn prefWidth="75.0" text="C2" />
-                                       </columns>
-                                    </TableView>
-                                 </children>
-                              </VBox>
+                              <VBox fx:id="container" prefHeight="525.0" prefWidth="412.0" />
                            </content>
                         </ScrollPane>
                      </children>

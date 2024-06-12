@@ -37,4 +37,31 @@ public class ReviewDAOImpl implements ReviewDAO{
 	    return reviews;
 	}
 
+	@Override
+	public ObservableList<Review> selectById(int librarianId) {
+		// TODO Auto-generated method stub
+		String sql = "select review_id, isbn, librarian_id, DBMS_LOB.SUBSTR(reviewtext,4000,1) AS reviewText, rating from review where librarian_id = ?";
+	    ObservableList<Review> reviews = FXCollections.observableArrayList();
+	    try (Connection conn = DatabaseUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	    	
+	        pstmt.setInt(1, librarianId);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (!rs.isBeforeFirst()) { // ResultSet이 비어 있는지 확인합니다.
+	        	System.out.println("No data found for ISBN: " + librarianId);
+	        	System.out.println("No data found.");
+	        	return reviews;
+	        }
+	        System.out.println(rs.toString());
+	        while(rs.next()) {
+	        	reviews.add(new Review(rs.getInt("review_id"), rs.getString("isbn"), rs.getInt("librarian_id")
+	        			, rs.getString("reviewText"), rs.getInt("rating")
+	        			));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return reviews;
+	}
+
 }

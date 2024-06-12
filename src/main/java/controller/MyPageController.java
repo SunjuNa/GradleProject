@@ -6,7 +6,11 @@ import java.util.ResourceBundle;
 
 import bean.dao.LibrarianDAO;
 import bean.dao.LibrarianDAOImpl;
+import bean.dao.ReviewDAO;
+import bean.dao.ReviewDAOImpl;
 import bean.dto.Librarian;
+import bean.dto.Review;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +19,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MyPageController implements Initializable{
 	private LibrarianDAO librarianDAO;
 	private Librarian librarian;
+	private Review review;
+	private ReviewDAO reviewDAO;
 	
 	@FXML
 	private Label nameTf;
@@ -30,15 +38,31 @@ public class MyPageController implements Initializable{
 	private TextField emailTf;
 	@FXML
 	private TextField phoneTf;
+	@FXML
+	private TextField reviewTf;
+	@FXML
+	private VBox container;
 	
 	public void initData() {
 		librarianDAO = new LibrarianDAOImpl();
+		reviewDAO = new ReviewDAOImpl();
 		
 		Librarian newone = librarianDAO.getLibrarianById(librarian.getLibrarian_id());
 		nameTf.setText(librarian.getL_name());
 		librarianIdTf.setText(String.valueOf(librarian.getLibrarian_id()));
 		emailTf.setText(librarian.getL_email());
 		phoneTf.setText(librarian.getL_phone());
+		
+		ObservableList<Review> reviews = reviewDAO.selectById(librarian.getLibrarian_id());
+		reviewTf.setText(String.valueOf(reviews.size()));
+		for(Review review : reviews) {
+			TextArea tA = new TextArea();
+			String reviewText = review.getReviewText();
+			tA.setText(String.valueOf(review.getRating())+"점"+"\n"+"isbn : "+review.getIsbn()+"\n"+reviewText);
+			tA.setWrapText(true);
+			tA.setPrefHeight(80);
+			container.getChildren().add(tA);
+		}
 	}
 	
 	private void setTextFieldDoubleClick(TextField textField) {

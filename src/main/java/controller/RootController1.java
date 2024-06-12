@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 
 /**
  * @author 나선주
- *
  */
 
 public class RootController1 implements Initializable{
